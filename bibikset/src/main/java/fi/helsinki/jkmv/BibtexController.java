@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class TestSpring {
+public class BibtexController {
 	
 	@RequestMapping(value = "springtest", method = RequestMethod.GET)
 	public String test(Model model) {
@@ -19,7 +19,7 @@ public class TestSpring {
 		
 		model.addAttribute("message", "Ke Pasa?");
 		model.addAttribute("testlist", list);
-		return "TestSpringView";
+		return "BibtexTestView";
 	}
 
 }
