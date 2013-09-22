@@ -7,12 +7,14 @@
         <title></title>
     </head>
     <body>
-        <jsp:include page="/titlebar"  />
+        <jsp:include page="titlebar.jsp"  />
+        <!--
         <form method="POST" action="add">
-          <label>key: <input type="text" name="key" /></label>
-          <label>author: <input type="text" name="author" /></label>
+          <label>Key: <input type="text" name="key" /></label>
+          <label>Author: <input type="text" name="author" /></label>
           <input type="submit" />
         </form>
+        -->
         <p>${message}</p>
         
         <pre>

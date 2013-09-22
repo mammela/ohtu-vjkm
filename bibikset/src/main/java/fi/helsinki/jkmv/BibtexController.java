@@ -20,6 +20,7 @@ public class BibtexController {
         public String add(@ModelAttribute("reference") Reference reference) { 
             referenceService.add(reference);
             return "redirect:/app/list";
+            
         }
         
         /*
@@ -27,7 +28,7 @@ public class BibtexController {
          */
         @RequestMapping(value = "add", method = RequestMethod.GET)
         public String showAdd(Model model) { 
-            return "ListView";
+            return "addNew";
         }
 
         /*
