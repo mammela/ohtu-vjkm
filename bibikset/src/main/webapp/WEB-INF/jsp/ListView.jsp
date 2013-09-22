@@ -7,10 +7,15 @@
         <title></title>
     </head>
     <body>
+        <form method="POST" action="add">
+          <label>key: <input type="text" name="key" /></label>
+          <label>author: <input type="text" name="author" /></label>
+          <input type="submit" />
+        </form>
         <p>${message}</p>
         
         <pre>
-        <c:forEach var="item" items="${testlist}">
+        <c:forEach var="item" items="${referencelist}">
             ${item}
         </c:forEach>
         </pre>

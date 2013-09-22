@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.springframework.ui.Model;
 
 public class BibtexControllerTest {
     
@@ -30,7 +29,7 @@ public class BibtexControllerTest {
     }
 
     @Test
-    public void testTest() {
+    public void testAdd() {
         assertEquals(1, 1);
     }
 }

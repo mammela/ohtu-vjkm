@@ -7,9 +7,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class BibtexModelTest {
+
+public class ReferenceServiceTest {
     
-    public BibtexModelTest() {
+    public ReferenceServiceTest() {
     }
     
     @BeforeClass
@@ -28,8 +29,10 @@ public class BibtexModelTest {
     public void tearDown() {
     }
 
+ 
     @Test
-    public void testTest() {
-        assertEquals(7, 7);
+    public void testAdd() {
+        assertEquals(1, 1);
     }
+    
 }

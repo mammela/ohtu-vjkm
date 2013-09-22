@@ -1,25 +1,38 @@
 package fi.helsinki.jkmv;
 
-import java.util.*;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class BibtexController {
-	
-	@RequestMapping(value = "springtest", method = RequestMethod.GET)
-	public String test(Model model) {
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("yks");
-		list.add("kaks");
-		list.add("kol");
-		
-		model.addAttribute("message", "Ke Pasa?");
-		model.addAttribute("testlist", list);
-		return "BibtexTestView";
-	}
+    
+        @Autowired
+        private ReferenceService referenceService;
+        
+        /*
+         * viitteen lisäys osoitteessa /app/add
+         */
+        @RequestMapping(value = "add", method = RequestMethod.POST)
+        public String add(@ModelAttribute("reference") Reference reference) { 
+            referenceService.add(reference);
+            return "redirect:/app/list";
+        }
 
+        @RequestMapping(value = "add", method = RequestMethod.GET)
+        public String showAdd(Model model) { 
+            return "ListView";
+        }
+
+        /*
+         * viitteiden listaaminen osoitteesse app/list
+         */
+        @RequestMapping(value="list", method=RequestMethod.GET)
+        public String getReferences(Model model) {
+                model.addAttribute("referencelist", this.referenceService.list());   
+		return "ListView";
+        }   
 }
