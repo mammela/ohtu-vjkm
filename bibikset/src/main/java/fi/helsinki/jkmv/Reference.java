@@ -9,6 +9,7 @@ public class Reference {
     private int year;
 
     public Reference(){
+        // asetetaan toistaiseksi kaikki inproceedings-muotoon
         this.type = "Inproceedings";
     }
     

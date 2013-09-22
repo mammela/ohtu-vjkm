@@ -21,14 +21,17 @@ public class BibtexController {
             referenceService.add(reference);
             return "redirect:/app/list";
         }
-
+        
+        /*
+         * lomakkeen näyttäminen lisäämistä varten
+         */
         @RequestMapping(value = "add", method = RequestMethod.GET)
         public String showAdd(Model model) { 
             return "ListView";
         }
 
         /*
-         * viitteiden listaaminen osoitteesse app/list
+         * viitteiden listaaminen osoitteessa app/list
          */
         @RequestMapping(value="list", method=RequestMethod.GET)
         public String getReferences(Model model) {
