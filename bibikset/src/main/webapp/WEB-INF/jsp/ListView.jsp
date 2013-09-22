@@ -7,6 +7,7 @@
         <title></title>
     </head>
     <body>
+        <jsp:include page="/titlebar"  />
         <form method="POST" action="add">
           <label>key: <input type="text" name="key" /></label>
           <label>author: <input type="text" name="author" /></label>
