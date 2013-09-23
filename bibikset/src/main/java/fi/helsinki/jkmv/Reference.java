@@ -36,4 +36,12 @@ public class Reference {
     public void setAuthor(String author){
         this.author = author;
     }
+    
+    public void setYear(int year){
+        this.year = year;
+    }
+    
+    public int getYear() {
+        return this.year;
+    }
 }

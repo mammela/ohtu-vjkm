@@ -7,7 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <style type="text/css">
-input {position:absolute; left: 80px;  } 
+input { margin: 5px; float: right; } 
+label {width: 100%; float: left; margin-top:10px;}
+.inputData {width: 300px;}
 
 </style>
 

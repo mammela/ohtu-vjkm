@@ -30,7 +30,7 @@ public class ReferenceService {
             // tulostus inproceedings-viitteelle
             if (item.getType().equals("Inproceedings")){
                 refList.add("@" +item.getType() + "{"+item.getKey() +
-                        ", author = \"" + item.getAuthor() + "\"}");
+                        ", author = \"" + item.getAuthor() + "\"}" + item.getYear());
             }            
         }
         return refList;
