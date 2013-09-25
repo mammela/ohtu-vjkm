@@ -20,7 +20,6 @@ public class BibtexController {
         public String add(@ModelAttribute("reference") Reference reference) { 
             referenceService.add(reference);
             return "redirect:/app/list";
-            
         }
         
         /*
@@ -36,7 +35,10 @@ public class BibtexController {
          */
         @RequestMapping(value="list", method=RequestMethod.GET)
         public String getReferences(Model model) {
-                model.addAttribute("referencelist", this.referenceService.list());   
+        	if(referenceService.list().size() == 0) {
+        		model.addAttribute("message", "Empty reference list.");
+        	}
+		model.addAttribute("referencelist", this.referenceService.list());   
 		return "list";
         }   
 }
