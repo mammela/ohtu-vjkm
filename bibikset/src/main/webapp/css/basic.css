@@ -1,0 +1,83 @@
+/* Basic */
+
+body {
+	background-color: white; 
+}
+
+h1 {
+	margin-top: 2px;
+	margin-bottom: 10px;
+	
+	font-size: 30px;
+	font-family: "Trykker", serif;
+	font-weight: normal;
+}
+
+h2 {
+	margin-top: 2px;
+	margin-bottom: 10px;
+	
+	font-size: 20px;
+	font-family: "Trykker", serif;
+	font-weight: normal;
+}
+
+p {
+	font-size: 14px;
+	font-family: 'Gudea', sans-serif;
+}
+
+/* achor */
+
+a {
+	font-size: 14px;
+	font-family: 'Gudea', sans-serif;
+	color: black;
+	text-decoration: none;
+}
+
+a.menu {
+	font-size: 16px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* div */
+
+div.container {
+	margin: 50px;
+}
+
+div.menucontainer {
+	margin: 0px;
+	margin-bottom: 20px;
+	padding: 0px;
+}
+
+div.inputData {
+	width: 300px;
+}
+
+
+/* Forms */
+
+input { 
+	margin: 0px; 
+	float: right;
+} 
+
+input.submit {
+	margin-top:20px
+}
+
+label {
+	margin-top: 10px;
+	width: 100%; 
+	float: left; 
+	
+	font-size: 16px;
+	font-family: 'Gudea', sans-serif;
+}
+

@@ -10,10 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add New</title>
+        <jsp:include page="includeCss.jsp" />
     </head>
     <body>
-        <jsp:include page="titlebar.jsp"  />
-        <h2>Add new</h2>
+	<div class="container">
+        <jsp:include page="includeMenu.jsp" />
+        
+        <h2>Add new reference</h2>
         <div class="inputData">
         <form method="POST" action="add">
            <select>
@@ -26,10 +29,10 @@
           <label>Booktitle: <input type="text" name="booktitle" ></label><br>
           <label>Year:    <input type="number" title= "Anna vuosi" name="year" pattern="[0-9]{4}"/></label><br>
           
-          
-          
-          <input style="margin-top:20px" type="submit" value="Lisää uusi"/>
+          <input class="submit" type="submit" value="Add"/>
         </form>
+        </div>
+        
         </div>
     </body>
 </html>

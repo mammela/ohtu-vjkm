@@ -37,6 +37,6 @@ public class BibtexController {
         @RequestMapping(value="list", method=RequestMethod.GET)
         public String getReferences(Model model) {
                 model.addAttribute("referencelist", this.referenceService.list());   
-		return "ListView";
+		return "list";
         }   
 }
