@@ -15,7 +15,7 @@ public class Reference {
     
     public String getType(){
         return this.type;
-    }
+    }    
     
     public void setType(String type){
         this.type = type;    
@@ -23,7 +23,7 @@ public class Reference {
 
     public String getKey(){
         return this.key;
-    }
+    }    
     
     public void setKey(String key){
         this.key = key;    
@@ -35,6 +35,22 @@ public class Reference {
     
     public void setAuthor(String author){
         this.author = author;
+    }
+    
+    public String getTitle(){
+        return this.title;
+    }
+    
+    public void setTitle(String title){
+        this.title = title;
+    }
+    
+    public String getBooktitle(){
+        return this.booktitle;
+    }
+    
+    public void setBooktitle(String booktitle){
+        this.booktitle = booktitle;
     }
     
     public void setYear(int year){

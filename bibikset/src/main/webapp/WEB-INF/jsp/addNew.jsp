@@ -24,10 +24,10 @@
                 <option value="book">Book</option>
           </select> <br>
           <label>Key:    <input type="text" name="key" required></label><br>
-          <label>Author: <input type="text" name="author" ></label><br>
-          <label>Title: <input type="text" name="title" ></label><br>
-          <label>Booktitle: <input type="text" name="booktitle" ></label><br>
-          <label>Year:    <input type="number" title= "Anna vuosi" name="year" pattern="[0-9]{4}"/></label><br>
+          <label>Author: <input type="text" name="author" required></label><br>
+          <label>Title: <input type="text" name="title" required></label><br>
+          <label>Booktitle: <input type="text" name="booktitle" required ></label><br>
+          <label>Year:    <input type="number" title= "Anna vuosi" name="year" pattern="[0-9]{4}" required/></label><br>
           
           <input class="submit" type="submit" value="Add"/>
         </form>
