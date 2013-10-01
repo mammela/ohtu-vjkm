@@ -1,5 +1,6 @@
 package fi.helsinki.jkmv;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -7,9 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class BibtexControllerTest {
+public class ReferencesTest {
     
-    public BibtexControllerTest() {
+    public ReferencesTest() {
     }
     
     @BeforeClass
@@ -28,8 +29,18 @@ public class BibtexControllerTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of addReference & getlist methods, of class References.
+     */
     @Test
-    public void testAdd() {
-        assertEquals(1, 1);
+    public void testAddReference() {
+        Reference ref = new Reference();
+        ref.setTitle("test");
+        References refs = new References();
+        refs.addReference(ref);
+
+        List result = refs.getList();
+        assertEquals(result.size(),1);
     }
+
 }

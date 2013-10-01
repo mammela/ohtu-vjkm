@@ -20,8 +20,7 @@ public class Reference {
 	private String year;
 	
 	public Reference(){
-		// asetetaan toistaiseksi kaikki inproceedings-muotoon
-		this.type = "Inproceedings";
+            this.type = "Inproceedings";
 	}
 	
 	public String getType(){

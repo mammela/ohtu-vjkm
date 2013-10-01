@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BibtexController {
     
         @Autowired
-        private ReferenceService referenceService;
+        public ReferenceService referenceService;
         
         /*
          * viitteen lisäys osoitteessa /app/add

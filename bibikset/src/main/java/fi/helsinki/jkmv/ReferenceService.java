@@ -26,12 +26,21 @@ public class ReferenceService {
     public List<String> list() {
         List<String> refList = new ArrayList<String>();
         for (Reference item : references.getList()){
-            
-            // tulostus inproceedings-viitteelle
+            //tulostukset eri viite-tiedoille
             if (item.getType().equals("Inproceedings")){
                 refList.add(item.getKey() + ", " +item.getType() + ", " +
                         item.getAuthor() + ", " +item.getTitle() + ", " +
                         item.getBooktitle() + ", " + item.getYear());
+            } else if (item.getType().equals("Book")){
+                refList.add(item.getKey() + ", " +item.getType() + ", " +
+                        item.getAuthor() + ", " +item.getTitle() + ", " +
+                        item.getPublisher() + ", " + item.getYear());
+            } else if (item.getType().equals("Article")){
+                refList.add(item.getKey() + ", " +item.getType() + ", " +
+                        item.getAuthor() + ", " +item.getTitle() + ", " +
+                        item.getJournal() + ", " + item.getYear());
+            } else {
+                refList.add(item.getKey() + ", " +item.getTitle());
             }            
         }
         return refList;

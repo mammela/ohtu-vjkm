@@ -27,12 +27,14 @@ public class BibtexIOTest {
 		ref1.setBooktitle(null);
 		
 		Reference ref2 = new Reference();
+		ref2.setType("Inproceedings");
 		ref2.setKey("kondor1967");
 		ref2.setAuthor("El Kondor Jyyströmi");
 		ref2.setTitle("Panhuilut kolmen sepän patsaalla");
 		ref2.setBooktitle("Tarinoita tampereelta");
 		
 		Reference ref3 = new Reference();
+		ref3.setType("Inproceedings");
 		ref3.setKey("aakkoset2000");
 		ref3.setAuthor("Ä ä Ö ö");
 		
