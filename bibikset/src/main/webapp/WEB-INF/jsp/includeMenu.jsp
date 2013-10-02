@@ -9,5 +9,6 @@
 <div class="menucontainer">
 <h1>Bibtex - sovellus</h1>
 <a class="menu" href="add">Add new</a> | 
-<a class="menu" href="list">List</a>
+<a class="menu" href="list">List</a> | 
+<a class="menu" href="bibtex">Bibtex</a>
 </div>

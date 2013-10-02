@@ -42,5 +42,16 @@ public class BibtexController {
         	}
 		model.addAttribute("referencelist", this.referenceService.list());   
 		return "list";
-        }   
+        }
+        
+        
+        @RequestMapping(value="bibtex", method=RequestMethod.GET)
+        public String showBibtex(Model model) {
+        	if(referenceService.list().size() == 0) {
+        		model.addAttribute("message", "Empty reference list.");
+        	}
+        	
+		model.addAttribute("bibtex", referenceService.renderBibtex());   
+		return "bibtex";
+        }  
 }
