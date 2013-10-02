@@ -45,4 +45,9 @@ public class ReferenceService {
         }
         return refList;
     }
+    
+    public String renderBibtex() {
+    	   BibtexIO bio = new BibtexIO(references.getList());
+    	   return bio.renderToBibtex();
+    }
 }

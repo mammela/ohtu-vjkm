@@ -17,8 +17,10 @@ public class BibtexController {
          * viitteen lisäys osoitteessa /app/add
          */
         @RequestMapping(value = "add", method = RequestMethod.POST)
-        public String add(@ModelAttribute("reference") Reference reference) { 
-            referenceService.add(reference);
+        public String add(@ModelAttribute("reference") Reference reference) {
+            if(reference.hasValidType() == true)
+                referenceService.add(reference);
+            // else valitetaan jotain viewiin tai jonnekkin :)
             return "redirect:/app/list";
         }
         

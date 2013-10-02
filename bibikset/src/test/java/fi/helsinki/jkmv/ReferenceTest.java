@@ -19,6 +19,14 @@ public class ReferenceTest {
     }
     
     @Test
+    public void testHasValidType() {
+        ref.setType("Book");
+        assertEquals(true, ref.hasValidType());
+        ref.setType("Hatsa");
+        assertEquals(false, ref.hasValidType());
+    }
+    
+    @Test
     public void testType() {
         ref.setType("Book");
         assertEquals("Book", ref.getType());

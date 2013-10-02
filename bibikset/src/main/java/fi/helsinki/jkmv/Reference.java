@@ -1,9 +1,17 @@
 package fi.helsinki.jkmv;
 
 public class Reference {
+	
+	// static final
+	public static final String TYPE_ARTICLE = "Article";
+	public static final String TYPE_BOOK = "Book";
+	public static final String TYPE_INPROCEEDINGS = "Inproceedings";
+	
+	// basic fields
 	private String type;
 	private String key;
 	
+	// other
 	private String author;
 	private String editor;
 	private String publisher;
@@ -16,12 +24,36 @@ public class Reference {
 	private String edition;
 	private String pages;
 	private String month;
-	private String note;
 	private String year;
+	private String note;
+	
+	/*____________________________________________________________________
+	* Constructor
+	*/
 	
 	public Reference(){
-            this.type = "Inproceedings";
+            this.type = TYPE_ARTICLE;
 	}
+	
+	/*____________________________________________________________________
+	* Services
+	*/
+	
+	public boolean hasValidType() {
+		if(type.equalsIgnoreCase(TYPE_ARTICLE))
+			return true;
+		else if(type.equalsIgnoreCase(TYPE_BOOK))
+			return true;
+		if(type.equalsIgnoreCase(TYPE_INPROCEEDINGS))
+			return true;
+		
+		return false;
+	} 
+	
+	
+	/*____________________________________________________________________
+	* Get/Set
+	*/
 	
 	public String getType(){
 		return this.type;
@@ -135,19 +167,19 @@ public class Reference {
 		this.month = month;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-	
 	public void setYear(String year){
 		this.year = year;
 	}
 	
 	public String getYear() {
 		return this.year;
+	}
+	
+	public String getNote() {
+		return note;
+	}
+	
+	public void setNote(String note) {
+		this.note = note;
 	}
 }
