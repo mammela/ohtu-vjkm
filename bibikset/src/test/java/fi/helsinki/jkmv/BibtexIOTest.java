@@ -77,9 +77,6 @@ public class BibtexIOTest {
 		expected.append("  title = {Perusetti},\n");
 		expected.append("}\n\n");
 		
-		//System.out.println(sb.toString());
-		//System.out.println(expected.toString());
-		
 		assertEquals(expected.toString(), sb.toString());
 	}
 	

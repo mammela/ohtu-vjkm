@@ -29,9 +29,19 @@ public class BibtexIO {
 		
 		// entrys
 		renderSingleTag(sb, "author", ref.getAuthor());
+		renderSingleTag(sb, "editor", ref.getEditor());
+		renderSingleTag(sb, "publisher", ref.getPublisher());
 		renderSingleTag(sb, "title", ref.getTitle());
 		renderSingleTag(sb, "booktitle", ref.getBooktitle());
+		renderSingleTag(sb, "journal", ref.getJournal());
+		renderSingleTag(sb, "volume", ref.getVolume());
+		renderSingleTag(sb, "number", ref.getNumber());
+		renderSingleTag(sb, "series", ref.getSeries());
+		renderSingleTag(sb, "edition", ref.getEdition());
+		renderSingleTag(sb, "pages", ref.getPages());
+		renderSingleTag(sb, "month", ref.getMonth());
 		renderSingleTag(sb, "year", ref.getYear());
+		renderSingleTag(sb, "note", ref.getNote());
 		
 		// end
 		sb.append("}\n\n");
