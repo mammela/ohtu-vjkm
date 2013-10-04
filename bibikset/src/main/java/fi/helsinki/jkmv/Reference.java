@@ -6,6 +6,7 @@ public class Reference {
 	public static final String TYPE_ARTICLE = "Article";
 	public static final String TYPE_BOOK = "Book";
 	public static final String TYPE_INPROCEEDINGS = "Inproceedings";
+	public static final String TYPE_MISC = "Misc";
 	
 	// basic fields
 	private String type;
@@ -44,7 +45,9 @@ public class Reference {
 			return true;
 		else if(type.equalsIgnoreCase(TYPE_BOOK))
 			return true;
-		if(type.equalsIgnoreCase(TYPE_INPROCEEDINGS))
+                else if(type.equalsIgnoreCase(TYPE_INPROCEEDINGS))
+			return true;
+                else if(type.equalsIgnoreCase(TYPE_MISC))
 			return true;
 		
 		return false;
