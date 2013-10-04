@@ -16,14 +16,18 @@ public class BibtexController {
         /*
          * viitteen lisäys osoitteessa /app/add
          */
-        @RequestMapping(value = "add", method = RequestMethod.POST)
-        public String add(@ModelAttribute("reference") Reference reference) {
-            if(reference.hasValidType() == true)
-                referenceService.add(reference);
-            // else valitetaan jotain viewiin tai jonnekkin :)
-            return "redirect:/app/list";
-        }
-        
+         @RequestMapping(value = "add", method = RequestMethod.POST)
+         public String add(@ModelAttribute("reference") Reference reference) {
+         	 System.out.println("addnew type:" + reference.getType());
+         	 
+         	 if(reference.hasValidType() == true)
+         	 	 referenceService.add(reference);
+         	 else 
+         	 	 System.out.println("huono tyyppi:" + reference.getType());
+         	 
+         	 return "redirect:/app/list";
+         }
+         
         /*
          * lomakkeen näyttäminen lisäämistä varten
          */

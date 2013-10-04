@@ -24,12 +24,14 @@
             
            
         <form name="form" id="form" method="POST" action="add">
-            <select id="typeSelect" onchange="changeValue(value);">
+          <select name="type" onchange="changeValue(value);">
                 <option value="article">Article</option>
-                <option value="inproceeding">Inproceeding</option>
+                <option value="inproceedings">Inproceeding</option>
                 <option value="book">Book</option>
                 <option value="manual">Manual</option>
           </select> <br>
+          
+         <label>Bibtex key <input type="text" name="key" required></label>
           <div id="addForm">
           </div>
 

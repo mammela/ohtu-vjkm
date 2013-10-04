@@ -50,7 +50,7 @@
                     }
                 }
             }
-            else if (receivedValue==="inproceeding") {
+            else if (receivedValue==="inproceedings") {
                 console.log(receivedValue+" changeValue() if founded");
                 for (var i=0;i<inproceedingFields.length;i++) {
                     var field = entryFields[inproceedingFields[i]];
