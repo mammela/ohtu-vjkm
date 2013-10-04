@@ -29,7 +29,7 @@
          */ 
         function changeValue(receivedValue) {
             
-            console.log(receivedValue + " received value");
+            //console.log(receivedValue + " received value");
 
             var formType= "";
             var numberValidate="type= 'number'";
@@ -96,7 +96,7 @@
             }
             
              
-        formType += "<input class='submit' type='submit' value='Add'/>";    
+        formType += "<input name='Add' class='submit' type='submit' value='Add'/>";    
         document.getElementById('addForm').innerHTML = formType;
              
         }
