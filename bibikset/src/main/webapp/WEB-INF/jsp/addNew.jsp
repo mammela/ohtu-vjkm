@@ -20,15 +20,18 @@
         
         <h2>Add new reference</h2>
         <div id="formData" class="inputData">
+            
+            
+           
+        <form name="form" id="form" method="POST" action="add">
             <select id="typeSelect" onchange="changeValue(value);">
+                <option value="article">Article</option>
                 <option value="inproceeding">Inproceeding</option>
                 <option value="book">Book</option>
-                <option value="article">Article</option>
                 <option value="manual">Manual</option>
           </select> <br>
-
-        <form name="addForm" id="addForm" method="POST" action="add">
-
+          <div id="addForm">
+          </div>
 
           
          

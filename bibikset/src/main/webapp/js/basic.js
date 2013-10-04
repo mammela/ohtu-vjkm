@@ -17,8 +17,8 @@
          * function to initialize form onload of the body
          */
         function init() {
-            initValue = "inproceeding";
-            text = "inproceeding";
+            initValue = "article";
+            text = "article";
             changeValue(initValue);
         }
     
@@ -33,6 +33,9 @@
 
             var formType= "";
             var numberValidate="type= 'number'";
+            
+            //formType += "<input type='hidden' name='type' value='"+receivedValue+"'/>";
+            //alert(formType);
             
             if (receivedValue==="book") {
                 console.log(receivedValue+" changeValue() if founded");
@@ -92,6 +95,7 @@
                 console.log("INVALID VALUE in changeValue()");
             }
             
+             
         formType += "<input class='submit' type='submit' value='Add'/>";    
         document.getElementById('addForm').innerHTML = formType;
              
