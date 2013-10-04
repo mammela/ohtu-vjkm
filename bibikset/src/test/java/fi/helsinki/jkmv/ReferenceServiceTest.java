@@ -9,58 +9,79 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ReferenceServiceTest {
-    
-    public ReferenceServiceTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // Test of add -method
-    @Test
-    public void testAdd() {
-        ReferenceService refs = new ReferenceService();
-        // test list without refs
-        assertEquals(refs.list().size(),0);
-        Reference ref = new Reference();
-        ref.setType("Inproceedings");
-        refs.add(ref);
-        // test list with 1 ref
-        assertEquals(refs.list().size(),1);
-    }
-
-    // Tests for listing
-    @Test
-    public void testListing() {
-        ReferenceService refs = new ReferenceService();
-        Reference ref1 = new Reference();
-        Reference ref2 = new Reference();
-        Reference ref3 = new Reference();
-        Reference ref4 = new Reference();
-        ref1.setType("Inproceedings");
-        ref2.setType("Book");
-        ref3.setType("Article");
-        ref4.setType("Misc");
-        refs.add(ref1);
-        assertEquals(refs.list().size(),1);
-        refs.add(ref2);
-        assertEquals(refs.list().size(),2);
-        refs.add(ref3);
-        assertEquals(refs.list().size(),3);
-        refs.add(ref4);
-        assertEquals(refs.list().size(),4);
-    }
+	
+	ReferenceService refServ;
+	
+	public ReferenceServiceTest() {
+	}
+	
+	@Before
+	public void setUp() {
+		refServ = new ReferenceService(true);
+		
+		Reference ref = new Reference();
+		ref.setType("Book");
+		ref.setKey("sauri98");
+		ref.setAuthor("Pekka Sauri");
+		refServ.addRef(ref);
+		
+		Reference ref2 = new Reference();
+		ref2.setType("Article");
+		ref2.setType("Artikkeli1");
+		ref2.setKey("kirja02");
+		ref2.setAuthor("Timo Soini");
+		refServ.addRef(ref2);
+	}
+	
+	@After
+	public void tearDown() {
+	}
+	
+	@Test
+	public void testAdd() {
+		assertEquals(refServ.findAllRefs().size(), 2);
+		
+		Reference ref = new Reference();
+		ref.setType("Book");
+		ref.setKey("sauri01");
+		refServ.addRef(ref);
+		
+		assertEquals(refServ.findAllRefs().size(), 3);
+	}
+	
+	@Test
+	public void testFindByKey() {
+		Reference ref = refServ.findByKey("sauri98");
+		
+		assertNotNull(ref);
+		assertEquals(ref.getType(), "Book");
+		assertEquals(ref.getAuthor(), "Pekka Sauri");
+	}
+	
+	@Test
+	public void testTrashRef() {
+		// initial state
+		assertEquals(refServ.findAllRefs(false).size(), 2);
+		assertEquals(refServ.findAllRefs(true).size(), 0);
+		
+		// trash one reference
+		Reference ref = refServ.findByKey("sauri98");
+		refServ.trashRef(ref.getId());
+		ref = refServ.findByKey("sauri98");
+		
+		// state after one trash
+		assertTrue(ref.isInTrash());
+		assertEquals(refServ.findAllRefs(false).size(), 1);
+		assertEquals(refServ.findAllRefs(true).size(), 1);
+		
+		// real delete
+		refServ.emptyTrash();
+		ref = refServ.findByKey("sauri98");
+		
+		// state after deleting trash
+		assertNull(ref);
+		assertEquals(refServ.findAllRefs(false).size(), 1);
+		assertEquals(refServ.findAllRefs(true).size(), 0);
+	}
+	
 }

@@ -1,5 +1,9 @@
 package fi.helsinki.jkmv;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Reference {
 	
 	// static final
@@ -9,6 +13,9 @@ public class Reference {
 	public static final String TYPE_MISC = "Misc";
 	
 	// basic fields
+	@Id
+	private int id;
+	private boolean inTrash;
 	private String type;
 	private String key;
 	
@@ -34,6 +41,7 @@ public class Reference {
 	
 	public Reference(){
             this.type = TYPE_ARTICLE;
+            this.inTrash = false;
 	}
 	
 	/*____________________________________________________________________
@@ -57,6 +65,22 @@ public class Reference {
 	/*____________________________________________________________________
 	* Get/Set
 	*/
+	
+	public int getId(){
+		return this.id;
+	}    
+	
+	public void setId(int id){
+		this.id = id;    
+	}
+	
+	public boolean isInTrash(){
+		return this.inTrash;
+	}    
+	
+	public void setInTrash(boolean inTrash){
+		this.inTrash = inTrash;    
+	}
 	
 	public String getType(){
 		return this.type;

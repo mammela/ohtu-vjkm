@@ -61,6 +61,35 @@ div.inputData {
 }
 
 
+/* tables */
+
+table, tr, th, td {
+	padding :0;
+	margin: 0;
+	border: 0;
+}
+
+th {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 20px;
+	
+	font-size: 14px;
+	font-family: 'Gudea', sans-serif;
+	font-weight: bold;
+	text-align: left;
+}
+
+td {
+	padding-bottom: 5px;
+	padding-right: 10px;
+	
+	font-size: 14px;
+	font-family: 'Gudea', sans-serif;
+	text-align: left;
+}
+
+
 /* Forms */
 
 input { 
@@ -70,6 +99,10 @@ input {
 
 input.submit {
 	margin-top:20px
+}
+
+input.left {
+	float: left;
 }
 
 label {

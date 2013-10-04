@@ -1,57 +1,69 @@
 package fi.helsinki.jkmv;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BibtexController {
-    
+	
         @Autowired
         public ReferenceService referenceService;
         
-        /*
-         * viitteen lisäys osoitteessa /app/add
-         */
-         @RequestMapping(value = "add", method = RequestMethod.POST)
-         public String add(@ModelAttribute("reference") Reference reference) {
-         	 System.out.println("addnew type:" + reference.getType());
-         	 
-         	 if(reference.hasValidType() == true)
-         	 	 referenceService.add(reference);
-         	 else 
-         	 	 System.out.println("huono tyyppi:" + reference.getType());
-         	 
-         	 return "redirect:/app/list";
-         }
-         
-        /*
-         * lomakkeen näyttäminen lisäämistä varten
-         */
+        @RequestMapping(value = "add", method = RequestMethod.POST)
+        public String add(@ModelAttribute("reference") Reference reference) {
+        	if(reference.hasValidType() == true)
+        		referenceService.addRef(reference);
+        	else 
+        		System.out.println("huono tyyppi:" + reference.getType()); //pitäis logata johonkin kunnolla
+        	
+        	return "redirect:/app/list";
+        }
+        
         @RequestMapping(value = "add", method = RequestMethod.GET)
         public String showAdd(Model model) { 
-            return "addNew";
+        	return "addNew";
         }
-
-        /*
-         * viitteiden listaaminen osoitteessa app/list
-         */
+        
+        @RequestMapping(value = "trash", method = RequestMethod.GET)
+        public String trash(@RequestParam(value = "id") int id) {
+        	referenceService.trashRef(id);
+        	return "redirect:/app/list";
+        }
+        
+        @RequestMapping(value = "trash", method = RequestMethod.POST)
+        public String emptyTrash() {
+        	referenceService.emptyTrash();
+        	return "redirect:/app/list";
+        }
+        
         @RequestMapping(value="list", method=RequestMethod.GET)
-        public String getReferences(Model model) {
-        	if(referenceService.list().size() == 0) {
-        		model.addAttribute("message", "Empty reference list.");
+        public String showReferences(Model model) {
+        	List<Reference> refList = referenceService.findAllRefs(false);
+		List<Reference> trashList = referenceService.findAllRefs(true);
+		
+        	if(refList.size() == 0) {
+        		model.addAttribute("msg_reflist", "Empty reference list.");
         	}
-		model.addAttribute("referencelist", this.referenceService.list());   
+        	if(trashList.size() == 0) {
+        		model.addAttribute("msg_trashlist", "No trash.");
+        	}
+        	
+		model.addAttribute("reflist", refList);
+		model.addAttribute("trashlist", trashList);
+		
 		return "list";
         }
         
-        
         @RequestMapping(value="bibtex", method=RequestMethod.GET)
         public String showBibtex(Model model) {
-        	if(referenceService.list().size() == 0) {
+        	if(referenceService.findAllRefs().size() == 0) {
         		model.addAttribute("message", "Empty reference list.");
         	}
         	
