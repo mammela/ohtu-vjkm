@@ -16,6 +16,13 @@ public class BibtexController {
         @Autowired
         public ReferenceService referenceService;
         
+        /** Add view */
+        @RequestMapping(value = "add", method = RequestMethod.GET)
+        public String showAdd(Model model) { 
+        	return "addNew";
+        }
+        
+	/** Add reference handling (POST) -> list */
         @RequestMapping(value = "add", method = RequestMethod.POST)
         public String add(@ModelAttribute("reference") Reference reference) {
         	if(reference.hasValidType() == true)
@@ -26,23 +33,28 @@ public class BibtexController {
         	return "redirect:/app/list";
         }
         
-        @RequestMapping(value = "add", method = RequestMethod.GET)
-        public String showAdd(Model model) { 
-        	return "addNew";
-        }
-        
+	/** Ref to trash -> list */
         @RequestMapping(value = "trash", method = RequestMethod.GET)
         public String trash(@RequestParam(value = "id") int id) {
         	referenceService.trashRef(id);
         	return "redirect:/app/list";
         }
         
-        @RequestMapping(value = "trash", method = RequestMethod.POST)
+	/** Ref from trash -> list */
+        @RequestMapping(value = "untrash", method = RequestMethod.GET)
+        public String unTrash(@RequestParam(value = "id") int id) {
+        	referenceService.unTrashRef(id);
+        	return "redirect:/app/list";
+        }
+        
+        /** Empty trash -> list */
+        @RequestMapping(value = "emptytrash", method = RequestMethod.POST)
         public String emptyTrash() {
         	referenceService.emptyTrash();
         	return "redirect:/app/list";
         }
         
+        /** List view */
         @RequestMapping(value="list", method=RequestMethod.GET)
         public String showReferences(Model model) {
         	List<Reference> refList = referenceService.findAllRefs(false);
@@ -61,6 +73,7 @@ public class BibtexController {
 		return "list";
         }
         
+        /** Bibtex view */
         @RequestMapping(value="bibtex", method=RequestMethod.GET)
         public String showBibtex(Model model) {
         	if(referenceService.findAllRefs().size() == 0) {

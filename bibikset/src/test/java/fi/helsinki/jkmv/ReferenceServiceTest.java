@@ -17,7 +17,7 @@ public class ReferenceServiceTest {
 	
 	@Before
 	public void setUp() {
-		refServ = new ReferenceService(true);
+		refServ = new ReferenceService(true, true);
 		
 		Reference ref = new Reference();
 		ref.setType("Book");

@@ -11,7 +11,9 @@ import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.DataSourceConfig;
 import com.avaje.ebean.config.ServerConfig;
 
-
+/** 
+* Service for handling list of Reference objecs with persistency.
+*/
 @Service
 public class ReferenceService {
 	private EbeanServer ormServer;
@@ -20,19 +22,27 @@ public class ReferenceService {
 	* Constructor/setup
 	*********************************************************************/
 	
+	/** 
+	* Creates new reference service and DB in memory
+	* @see #ReferenceService(boolean, boolean)
+	*/
 	public ReferenceService() {
 		this(true, true);
 	}
 	
-	public ReferenceService(boolean inMemory) {
-		this(inMemory, true);
-	}
-	
+	/** 
+	* Creates new reference service and initialize database
+	* @param inMemory whether to create the database in memory or disk
+	* @param dropAndCreate whether to initialize database 
+	*/
 	public ReferenceService(boolean inMemory, boolean dropAndCreate) {
 		DataSourceConfig dsConf = initDataSource(inMemory, "~/bibikset");
 		ormServer = initDB(dsConf, dropAndCreate);
 	}
 	
+	/** 
+	* Create ebean ORM server object with the provided DataSourceConfig
+	*/
 	private EbeanServer initDB(DataSourceConfig dsConf, boolean dropAndCreate) {
 		ServerConfig config = new ServerConfig();
 		config.setName("refefenceDb");
@@ -50,6 +60,9 @@ public class ReferenceService {
 		return EbeanServerFactory.create(config);
 	}
 	
+	/** 
+	* Create datasource config 
+	*/
 	private DataSourceConfig initDataSource(boolean inMemory, String dbPath) {
 		DataSourceConfig dsconf = new DataSourceConfig();
 		dsconf.setDriver("org.h2.Driver");
@@ -69,10 +82,16 @@ public class ReferenceService {
 	* Finders
 	*********************************************************************/
 	
+	/** 
+	* All references not in trash
+	*/
 	public List<Reference> findAllRefs() {
 		return findAllRefs(false);
 	}
 	
+	/** 
+	* All references not in trash or in trash depending on given parameter
+	*/
 	public List<Reference> findAllRefs(boolean inTrash) {
 		List<Reference> refs = ormServer.find(Reference.class)
 		.where()
@@ -108,14 +127,31 @@ public class ReferenceService {
 		ormServer.save(reference);
 	}
 	
+	/** 
+	* Move reference to trash
+	*/
 	public void trashRef(int id) {
+		trashRefImpl(id, true);
+	}
+	
+	/** 
+	* Ressurect reference from trash
+	*/
+	public void unTrashRef(int id) {
+		trashRefImpl(id, false);
+	}
+	
+	private void trashRefImpl(int id, boolean setTrashTo) {
 		Reference ref = findById(id);
 		if(ref != null) {
-			ref.setInTrash(true);
+			ref.setInTrash(setTrashTo);
 			ormServer.save(ref);
 		}
 	}
 	
+	/** 
+	* Permanently delete all references currently in trash
+	*/
 	public void emptyTrash() {
 		List<Reference> refs = ormServer.find(Reference.class)
 			.where()
@@ -134,6 +170,9 @@ public class ReferenceService {
 	* Other services
 	*********************************************************************/
 	
+	/** 
+	* Return bibtex database containing all references not in trash
+	*/
 	public String renderBibtex() {
 		BibtexIO bio = new BibtexIO(findAllRefs());
 		return bio.renderToBibtex();

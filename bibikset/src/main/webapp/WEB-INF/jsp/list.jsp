@@ -50,6 +50,7 @@
 	<th>Author</th>
 	<th>Title</th>
 	<th>Year</th>
+	<th>Trash</th>
 	</tr>
         <c:forEach var="ref" items="${trashlist}">
 		<tr>
@@ -58,13 +59,14 @@
 		<td>${ref.author}</td>
 		<td>${ref.title}</td>
 		<td>${ref.year}</td>
+		<td><a href="untrash?id=${ref.id}">recover</a></td>
 		</tr>
         </c:forEach>
         </table>
 	
 	<p>${msg_trashlist}</p>
         
-	<form name="form" id="form" method="POST" action="trash">
+	<form name="form" id="form" method="POST" action="emptytrash">
 	<input class="left" name="empty" type="submit" value="Empty trash"/>         
 	</form>
 	

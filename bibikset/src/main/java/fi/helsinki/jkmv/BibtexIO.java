@@ -3,6 +3,9 @@ package fi.helsinki.jkmv;
 import java.util.List;
 import java.util.regex.Matcher;
 
+/** 
+* Render a list of references to Bibtex database. Filters scandic letters.
+*/
 public class BibtexIO {
 	private List<Reference> refList;
 	

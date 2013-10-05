@@ -3,10 +3,13 @@ package fi.helsinki.jkmv;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/** 
+* Object representing single reference. ORM mapped to the DB.
+*/
 @Entity
 public class Reference {
 	
-	// static final
+	// allowed reference types
 	public static final String TYPE_ARTICLE = "Article";
 	public static final String TYPE_BOOK = "Book";
 	public static final String TYPE_INPROCEEDINGS = "Inproceedings";
@@ -48,6 +51,10 @@ public class Reference {
 	* Services
 	*/
 	
+	/** 
+	* Check that the type -field contains supported reference type. 
+	* Case is ignored.
+	*/
 	public boolean hasValidType() {
 		if(type.equalsIgnoreCase(TYPE_ARTICLE))
 			return true;
