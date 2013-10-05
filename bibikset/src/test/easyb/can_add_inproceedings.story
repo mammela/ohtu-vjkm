@@ -1,5 +1,6 @@
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.openqa.selenium.*
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 description 'User can add inproceedings-referece with basic fields'
@@ -8,9 +9,9 @@ scenario "user can add inproceedings reference", {
     given 'add selected', {
         driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
         driver.setJavascriptEnabled(true);
-        driver.get("http://t-kristiat.users.cs.helsinki.fi/bibikset/app/add");
-        element = driver.findElement(By.id("type"));
-        ((JavascriptExecutor)driver).executeScript("changeValue('inproceedings')", element);        
+        driver.get("http://t-kristiat.users.cs.helsinki/bibikset/app/add");
+        Select select = new Select(driver.findElement(By.name("type")));
+        select.selectByVisibleText("Inproceeding"); 
     }
 
     when 'valid input is given', {

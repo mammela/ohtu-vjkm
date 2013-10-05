@@ -1,2 +1,4 @@
 /bibikset/target/
 *.sql
+/bibikset/src/main/java/fi/helsinki/jkmv/IntegrationTester.java
+.gitignore

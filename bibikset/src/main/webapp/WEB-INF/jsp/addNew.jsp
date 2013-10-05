@@ -26,7 +26,7 @@
             
            
         <form name="form" id="form" method="POST" action="add">
-          <select name="type" id="type" onchange="changeValue(value);">
+          <select name="type" onchange="changeValue(value);">
                 <option value="article">Article</option>
                 <option value="inproceedings">Inproceeding</option>
                 <option value="book">Book</option>
