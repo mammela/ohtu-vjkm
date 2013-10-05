@@ -25,10 +25,11 @@ public class BibtexController {
 	/** Add reference handling (POST) -> list */
         @RequestMapping(value = "add", method = RequestMethod.POST)
         public String add(@ModelAttribute("reference") Reference reference) {
-        	if(reference.hasValidType() == true)
-        		referenceService.addRef(reference);
-        	else 
-        		System.out.println("huono tyyppi:" + reference.getType()); //pitäis logata johonkin kunnolla
+        	if(reference.hasValidType() == true){
+                        referenceService.addRef(reference);
+                } else {
+                        System.out.println("huono tyyppi:" + reference.getType()); //pitäis logata johonkin kunnolla
+                }
         	
         	return "redirect:/app/list";
         }
@@ -59,14 +60,6 @@ public class BibtexController {
         public String showReferences(Model model) {
         	List<Reference> refList = referenceService.findAllRefs(false);
 		List<Reference> trashList = referenceService.findAllRefs(true);
-		
-        	if(refList.size() == 0) {
-        		model.addAttribute("msg_reflist", "Empty reference list.");
-        	}
-        	if(trashList.size() == 0) {
-        		model.addAttribute("msg_trashlist", "No trash.");
-        	}
-        	
 		model.addAttribute("reflist", refList);
 		model.addAttribute("trashlist", trashList);
 		
