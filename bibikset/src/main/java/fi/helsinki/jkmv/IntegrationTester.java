@@ -14,9 +14,10 @@ public class IntegrationTester {
 
         WebElement element;
 
-        driver.get("http://t-kristiat.users.cs.helsinki/bibikset/app/add");
+        driver.get("http://localhost:8080/bibikset/app/add");
+        //driver.get("http://t-kristiat.users.cs.helsinki/bibikset/app/add");
         
-        element = driver.findElement(By.id("typeSelect"));
+        element = driver.findElement(By.id("type"));
         
         //valitaan tyypiksi article ja ladataan kentät formille
         ((JavascriptExecutor)driver).executeScript("changeValue('article')", element);

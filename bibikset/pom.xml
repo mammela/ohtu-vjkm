@@ -89,6 +89,24 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         <artifactId>maven-jetty-plugin</artifactId>
                         <version>6.0.1</version>    
 		</plugin>
+                <plugin>
+                        <groupId>org.easyb</groupId>
+                        <artifactId>maven-easyb-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <storyType>html</storyType>
+                            <storyReport>${basedir}/target/easyb/easyb-report.html
+                            </storyReport>
+                        </configuration>
+                </plugin>
 	</plugins>
 	</build>
 </project>
