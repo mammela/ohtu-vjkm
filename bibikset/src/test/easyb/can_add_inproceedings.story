@@ -9,7 +9,7 @@ scenario "user can add inproceedings reference", {
     given 'add selected', {
         driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
         driver.setJavascriptEnabled(true);
-        driver.get("http://t-kristiat.users.cs.helsinki/bibikset/app/add");
+        driver.get("http://t-kristiat.users.cs.helsinki.fi/bibikset/app/add");
         Select select = new Select(driver.findElement(By.name("type")));
         select.selectByVisibleText("Inproceeding"); 
     }
