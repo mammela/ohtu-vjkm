@@ -18,6 +18,8 @@
 	<div class="container">
         <jsp:include page="includeMenu.jsp" />
         
+        <p><b>${message}</b></p>
+
         <h2>Add new reference</h2>
         <div id="formData" class="inputData">
             
@@ -31,15 +33,12 @@
                 <option value="manual">Manual</option>
           </select> <br>
           
-         <label>Bibtex key <input type="text" name="key" required></label>
-          <div id="addForm">
-          </div>
+        <label>Bibtex key <input type="text" name="key" required></label>
 
-          
-         
-        </form>
+        <div id="addForm">
         </div>
-        
+        </form>
+        </div>       
         </div>
     </body>
 </html>

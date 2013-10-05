@@ -12,26 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BibtexController {
-	
+        
         @Autowired
         public ReferenceService referenceService;
+
         
-        /** Add view */
+        /** Add reference view (GET) */
         @RequestMapping(value = "add", method = RequestMethod.GET)
         public String showAdd(Model model) { 
         	return "addNew";
         }
         
-	/** Add reference handling (POST) -> list */
+	/** Add reference handling (POST) */
         @RequestMapping(value = "add", method = RequestMethod.POST)
-        public String add(@ModelAttribute("reference") Reference reference) {
+        public String add(@ModelAttribute("reference") Reference reference, Model model) {
         	if(reference.hasValidType() == true){
                         referenceService.addRef(reference);
+                        model.addAttribute("message", "Reference with key '"+ reference.getKey() +"' successfully added!");
                 } else {
-                        System.out.println("huono tyyppi:" + reference.getType()); //pitäis logata johonkin kunnolla
-                }
-        	
-        	return "redirect:/app/list";
+                        model.addAttribute("message", "ERROR: reference type was incorrect; reference was not added!");                    
+                }        	
+        	return "addNew";
         }
         
 	/** Ref to trash -> list */
@@ -68,11 +69,7 @@ public class BibtexController {
         
         /** Bibtex view */
         @RequestMapping(value="bibtex", method=RequestMethod.GET)
-        public String showBibtex(Model model) {
-        	if(referenceService.findAllRefs().size() == 0) {
-        		model.addAttribute("message", "Empty reference list.");
-        	}
-        	
+        public String showBibtex(Model model) {       	
 		model.addAttribute("bibtex", referenceService.renderBibtex());   
 		return "bibtex";
         }  

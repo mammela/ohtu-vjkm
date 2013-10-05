@@ -11,12 +11,12 @@
     	<div class="container">
         <jsp:include page="includeMenu.jsp" />
 
-        <p>${message}</p>
-        
-<pre>
-${bibtex}
-</pre>
-        
+        <c:if test="${not empty bibtex}">
+            <pre>${bibtex}</pre>
+        </c:if>
+        <c:if test="${empty bibtex}">
+            <p><b>No items in the reference list.</b></p>
+        </c:if>
 	</div>
     </body>
 </html>

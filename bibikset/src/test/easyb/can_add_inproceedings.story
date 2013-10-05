@@ -14,21 +14,21 @@ scenario "user can add inproceedings reference", {
     }
 
     when 'valid input is given', {
-        element = driver.findElement(By.name("key"));
-        element.sendKeys("Bob89");
         element = driver.findElement(By.name("author"));
-        element.sendKeys("Bob");
+        element.sendKeys("Bob Benson");
         element = driver.findElement(By.name("title"));
         element.sendKeys("Bob's Life");
         element = driver.findElement(By.name("booktitle"));
         element.sendKeys("123");
         element = driver.findElement(By.name("year"));
         element.sendKeys("1989");
+        element = driver.findElement(By.name("key"));
+        element.sendKeys("BB89");
         element = driver.findElement(By.name("Add"));
         element.submit();
     }
  
     then 'reference will be added in to system', {
-        driver.getPageSource().contains("Bob's Life").shouldBe true
+        driver.getPageSource().contains("Reference with key 'BB89' successfully added!").shouldBe true
     }
 }
