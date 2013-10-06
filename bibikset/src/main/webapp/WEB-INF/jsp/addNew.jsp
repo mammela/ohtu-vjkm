@@ -18,16 +18,17 @@
         <h2>Add new reference</h2>
         <div id="formData" class="inputData">
 
-        <form name="form" id="form" method="POST" action="add" onsubmit="return isKeyValid();">
-          <select name="entryType" onchange="changeValue(value);">
-            <c:forEach var="ent" items="${entrytypes}">
-                <option value="${ent}">${ent}</option>
-            </c:forEach>
-          </select> <br>
+            <form name="form" id="form" method="POST" action="add" onsubmit="return isKeyValid();">
+              <select name="entryType" onchange="changeValue(value);">
+                <c:forEach var="ent" items="${entrytypes}">
+                    <option value="${ent}">${ent}</option>
+                </c:forEach>
+              </select>
+                <input name='Add' class='submit' type='submit' value='Add'/> <br>
 
-        <div id="addForm">
-        </div>
-        </form>
+            <div id="addForm">
+            </div>
+            </form>
         </div>       
         </div>
     </body>

@@ -57,7 +57,7 @@ div.menucontainer {
 }
 
 div.inputData {
-	width: 400px;
+	width: 700px;
 }
 
 div.or {
@@ -101,7 +101,8 @@ input {
 } 
 
 input.submit {
-	margin-top:20px
+	float: none;
+        margin-left: 20px;
 }
 
 input.left {
@@ -115,5 +116,19 @@ label {
 	
 	font-size: 16px;
 	font-family: 'Gudea', sans-serif;
+}
+
+#addForm {
+    background-color: #D3D3D3;
+    position: relative;
+    width: 100%;
+}
+
+.formFields {
+    background-color: #FAFAD2;
+    float: left;
+    padding: 20px;
+    position: relative;
+    width: 40%;
 }
 

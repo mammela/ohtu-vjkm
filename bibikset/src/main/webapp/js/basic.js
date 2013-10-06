@@ -86,7 +86,7 @@
                 console.log("INVALID VALUE in changeValue()");
             }
                          
-            formType += "<input name='Add' class='submit' type='submit' value='Add'/>";    
+            //formType += "<input name='Add' class='submit' type='submit' value='Add'/>";    
             document.getElementById('addForm').innerHTML = formType;             
         }
         
@@ -95,10 +95,11 @@
          * Fill the form with required, alternative & optional fields
          */
         function fillForm(reqFields, orFields, optFields) {
-            var retVal = "<p>Required:</p>"
+            var retVal = "<div class='formFields' id='req'><p>Required:</p>"
             retVal += generateFields(reqFields, orFields, true);
-            retVal += "<p/><p>Optional:</p>"
+            retVal += "</div><div class='formFields' id='opt'><p/><p>Optional:</p>"
             retVal += generateFields(optFields, orFields, false);
+            retVal += "</div>"
             return retVal;
         }
         
@@ -199,8 +200,10 @@
             var keyValue = document.getElementById("key").value;
             if(usedKeys.indexOf(keyValue)>-1){
                 document.getElementById('keyErrorMsg').innerHTML = "Entered key is not unique!";
+                document.getElementById('key').style.backgroundColor='red';
             } else {
-                document.getElementById('keyErrorMsg').innerHTML = "";                
+                document.getElementById('keyErrorMsg').innerHTML = "";
+                document.getElementById('key').style.backgroundColor='white';
             }
         }    
         
