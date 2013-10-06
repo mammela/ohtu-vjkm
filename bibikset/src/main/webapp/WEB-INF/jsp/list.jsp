@@ -13,6 +13,7 @@
         <c:if test="${not empty reflist}">
             <h2>Reference list</h2>
             <table>
+            <table>
             <tr>
                 <th>Type</th>
                 <th>Key</th>
@@ -22,12 +23,13 @@
                 <th>Journal</th>
                 <th>Publisher</th>
                 <th>Year</th>
+                <th>Note</th>
                 <th>Trash</th>
-            </tr>	
+            </tr>
 
             <c:forEach var="ref" items="${reflist}">
-		<tr>
-                    <td>${ref.type}</td>
+		<tr>                
+                    <td>${ref.entryType}</td>
                     <td>${ref.key}</td>
                     <td>${ref.author}</td>
                     <td>${ref.title}</td>
@@ -35,6 +37,7 @@
                     <td>${ref.journal}</td>
                     <td>${ref.publisher}</td>
                     <td>${ref.year}</td>
+                    <td>${ref.note}</td>
                     <td><a href="trash?id=${ref.id}">trash</a></td>
 		</tr>
             </c:forEach>
@@ -54,17 +57,25 @@
                 <th>Key</th>
                 <th>Author</th>
                 <th>Title</th>
+                <th>Booktitle</th>
+                <th>Journal</th>
+                <th>Publisher</th>
                 <th>Year</th>
+                <th>Note</th>
                 <th>Trash</th>
             </tr>
             <c:forEach var="ref" items="${trashlist}">
 		<tr>
-		<td>${ref.type}</td>
-		<td>${ref.key}</td>
-		<td>${ref.author}</td>
-		<td>${ref.title}</td>
-		<td>${ref.year}</td>
-		<td><a href="untrash?id=${ref.id}">recover</a></td>
+                    <td>${ref.entryType}</td>
+                    <td>${ref.key}</td>
+                    <td>${ref.author}</td>
+                    <td>${ref.title}</td>
+                    <td>${ref.booktitle}</td>
+                    <td>${ref.journal}</td>
+                    <td>${ref.publisher}</td>
+                    <td>${ref.year}</td>
+                    <td>${ref.note}</td>
+                    <td><a href="untrash?id=${ref.id}">recover</a></td>
 		</tr>
             </c:forEach>
             </table>

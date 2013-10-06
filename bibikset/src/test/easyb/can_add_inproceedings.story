@@ -30,6 +30,6 @@ scenario "user can add inproceedings reference", {
     }
  
     then 'reference will be added in to system', {
-        driver.getPageSource().contains("Reference with key 'BB89' successfully added!").shouldBe true
+        driver.getPageSource().contains("Reference with key=BB89 added successfully!").shouldBe true
     }
 }

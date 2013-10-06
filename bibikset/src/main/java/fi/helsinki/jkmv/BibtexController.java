@@ -20,21 +20,27 @@ public class BibtexController {
         /** Add reference view (GET) */
         @RequestMapping(value = "add", method = RequestMethod.GET)
         public String showAdd(Model model) { 
+                model.addAttribute("entrytypes", referenceService.getTypeNames());
+                model.addAttribute("usedkeys", referenceService.getKeys());                
         	return "addNew";
         }
         
 	/** Add reference handling (POST) */
         @RequestMapping(value = "add", method = RequestMethod.POST)
         public String add(@ModelAttribute("reference") Reference reference, Model model) {
-        	if(reference.hasValidType() == true){
-                        referenceService.addRef(reference);
-                        model.addAttribute("message", "Reference with key '"+ reference.getKey() +"' successfully added!");
-                } else {
+                if (referenceService.findByKey(reference.getKey())!=null){
+                        model.addAttribute("message", "ERROR: bibtex key was not unique; reference was not added!");                                        
+                } else if(reference.hasValidEntryType() == false){
                         model.addAttribute("message", "ERROR: reference type was incorrect; reference was not added!");                    
+                } else {
+                        referenceService.addRef(reference);
+                        model.addAttribute("message", "Reference with key="+ reference.getKey() +" added successfully!");
                 }        	
+                model.addAttribute("entrytypes", referenceService.getTypeNames());
+                model.addAttribute("usedkeys", referenceService.getKeys());                
         	return "addNew";
         }
-        
+
 	/** Ref to trash -> list */
         @RequestMapping(value = "trash", method = RequestMethod.GET)
         public String trash(@RequestParam(value = "id") int id) {
@@ -63,14 +69,13 @@ public class BibtexController {
 		List<Reference> trashList = referenceService.findAllRefs(true);
 		model.addAttribute("reflist", refList);
 		model.addAttribute("trashlist", trashList);
-		
 		return "list";
         }
         
         /** Bibtex view */
         @RequestMapping(value="bibtex", method=RequestMethod.GET)
-        public String showBibtex(Model model) {       	
-		model.addAttribute("bibtex", referenceService.renderBibtex());   
-		return "bibtex";
-        }  
+        public String showBibtex(Model model) {
+                model.addAttribute("bibtex", referenceService.renderBibtex());
+                return "bibtex";
+        } 
 }

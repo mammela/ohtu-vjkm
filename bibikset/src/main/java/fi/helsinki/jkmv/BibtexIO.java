@@ -25,7 +25,7 @@ public class BibtexIO {
 	protected void renderSingleReference(StringBuilder sb, Reference ref) {
 		// head
 		sb.append("@");
-		sb.append(ref.getType());
+		sb.append(ref.getEntryType());
 		sb.append("{");
 		sb.append(ref.getKey());
 		sb.append(",\n");
@@ -42,11 +42,23 @@ public class BibtexIO {
 		renderSingleTag(sb, "series", ref.getSeries());
 		renderSingleTag(sb, "edition", ref.getEdition());
 		renderSingleTag(sb, "pages", ref.getPages());
-		renderSingleTag(sb, "month", ref.getMonth());
+		renderSingleTag(sb, "address", ref.getAddress());
+		renderSingleTag(sb, "annote", ref.getAnnote());
+		renderSingleTag(sb, "chapter", ref.getChapter());
+		renderSingleTag(sb, "crossref", ref.getCrossref());
+		renderSingleTag(sb, "editor", ref.getEditor());
+		renderSingleTag(sb, "eprint", ref.getEprint());
+		renderSingleTag(sb, "howpublished", ref.getHowpublished());
+		renderSingleTag(sb, "institution", ref.getInstitution());
+		renderSingleTag(sb, "organization", ref.getOrganization());
+		renderSingleTag(sb, "school", ref.getSchool());
+		renderSingleTag(sb, "url", ref.getUrl());
+		renderSingleTag(sb, "type", ref.getType());
+		renderSingleTag(sb, "month", ref.getMonth());                
 		renderSingleTag(sb, "year", ref.getYear());
 		renderSingleTag(sb, "note", ref.getNote());
-		
-		// end
+
+                // end
 		sb.append("}\n\n");
 	}
 	

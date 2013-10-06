@@ -20,14 +20,14 @@ public class ReferenceServiceTest {
 		refServ = new ReferenceService(true, true);
 		
 		Reference ref = new Reference();
-		ref.setType("Book");
+		ref.setEntryType("book");
 		ref.setKey("sauri98");
 		ref.setAuthor("Pekka Sauri");
 		refServ.addRef(ref);
 		
 		Reference ref2 = new Reference();
-		ref2.setType("Article");
-		ref2.setType("Artikkeli1");
+		ref2.setEntryType("article");
+		ref2.setEntryType("artikkeli1");
 		ref2.setKey("kirja02");
 		ref2.setAuthor("Timo Soini");
 		refServ.addRef(ref2);
@@ -42,7 +42,7 @@ public class ReferenceServiceTest {
 		assertEquals(refServ.findAllRefs().size(), 2);
 		
 		Reference ref = new Reference();
-		ref.setType("Book");
+		ref.setEntryType("book");
 		ref.setKey("sauri01");
 		refServ.addRef(ref);
 		
@@ -54,7 +54,7 @@ public class ReferenceServiceTest {
 		Reference ref = refServ.findByKey("sauri98");
 		
 		assertNotNull(ref);
-		assertEquals(ref.getType(), "Book");
+		assertEquals(ref.getEntryType(), "book");
 		assertEquals(ref.getAuthor(), "Pekka Sauri");
 	}
 	

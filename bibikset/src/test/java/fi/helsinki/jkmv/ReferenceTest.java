@@ -18,24 +18,22 @@ public class ReferenceTest {
     //testit validTypelle
     @Test
     public void testHasValidType() {
-        ref.setType("Book");
-        assertEquals(true, ref.hasValidType());
-        ref.setType("Article");
-        assertEquals(true, ref.hasValidType());
-        ref.setType("Inproceedings");
-        assertEquals(true, ref.hasValidType());
-        ref.setType("Misc");
-        assertEquals(true, ref.hasValidType());
+        ref.setEntryType("book");
+        assertEquals(true, ref.hasValidEntryType());
+        ref.setEntryType("article");
+        assertEquals(true, ref.hasValidEntryType());
+        ref.setEntryType("inproceedings");
+        assertEquals(true, ref.hasValidEntryType());
+        ref.setEntryType("misc");
+        assertEquals(true, ref.hasValidEntryType());
 
-        ref.setType("Hatsa");
-        assertEquals(false, ref.hasValidType());
+        ref.setEntryType("hatsa");
+        assertEquals(false, ref.hasValidEntryType());
     }
     
     //testit muille get-seteille
     @Test
     public void testGetSets() {
-        ref.setType("Book");
-        assertEquals("Book", ref.getType());
         ref.setKey("test23");
         assertEquals("test23", ref.getKey());
         ref.setAuthor("test23");

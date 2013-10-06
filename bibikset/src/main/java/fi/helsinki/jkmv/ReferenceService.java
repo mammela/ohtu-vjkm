@@ -12,7 +12,7 @@ import com.avaje.ebean.config.DataSourceConfig;
 import com.avaje.ebean.config.ServerConfig;
 
 /** 
-* Service for handling list of Reference objecs with persistency.
+* Service for handling list of Reference objects with persistency.
 */
 @Service
 public class ReferenceService {
@@ -82,13 +82,34 @@ public class ReferenceService {
 	* Finders
 	*********************************************************************/
 	
+        /** 
+	* All entry type names
+	*/
+	public String[] getTypeNames() {
+                Reference ref = new Reference();
+                return ref.getTypeNames();
+	}
+
+        /*
+         * Retrieve all key values for validation purposes
+         */
+        public List<String> getKeys() {
+		List<Reference> refs = ormServer.find(Reference.class).findList();
+                List<String> keys = new ArrayList<String>();
+                for (Reference ref : refs){
+                    keys.add(ref.getKey());
+                }
+                return keys;
+	}
+        
 	/** 
 	* All references not in trash
 	*/
 	public List<Reference> findAllRefs() {
 		return findAllRefs(false);
 	}
-	
+
+               
 	/** 
 	* All references not in trash or in trash depending on given parameter
 	*/
@@ -177,4 +198,5 @@ public class ReferenceService {
 		BibtexIO bio = new BibtexIO(findAllRefs());
 		return bio.renderToBibtex();
 	}
+        
 }

@@ -9,41 +9,33 @@ import javax.persistence.Id;
 @Entity
 public class Reference {
 	
-	// allowed reference types
-	public static final String TYPE_ARTICLE = "Article";
-	public static final String TYPE_BOOK = "Book";
-	public static final String TYPE_INPROCEEDINGS = "Inproceedings";
-	public static final String TYPE_MISC = "Misc";
-	
+	// reference entry types
+        private static final String[] entryTypes = {"article", "book", "booklet", 
+            "conference", "inbook", "incollection", "inproceedings", "manual",
+            "mastersthesis", "misc", "phdthesis", "proceedings", "techreport",
+            "unpublished"};
+               
 	// basic fields
 	@Id
 	private int id;
-	private boolean inTrash;
-	private String type;
+
+        private boolean inTrash;
+	private String entryType;
 	private String key;
 	
-	// other
-	private String author;
-	private String editor;
-	private String publisher;
-	private String title;
-	private String booktitle;
-	private String journal;
-	private String volume;
-	private String number;
-	private String series;
-	private String edition;
-	private String pages;
-	private String month;
-	private String year;
-	private String note;
-	
+	// other data entries
+	private String abstractEntry, address, annote, author, booktitle, chapter, crossref,
+                edition, editor, eprint, howpublished, institution, journal,
+                month, note, number, organization, pages, publisher, school,
+                series, title, type, url, volume, year;	
+
+        
 	/*____________________________________________________________________
 	* Constructor
 	*/
 	
 	public Reference(){
-            this.type = TYPE_ARTICLE;
+            this.entryType = "misc";
             this.inTrash = false;
 	}
 	
@@ -51,21 +43,23 @@ public class Reference {
 	* Services
 	*/
 	
-	/** 
-	* Check that the type -field contains supported reference type. 
-	* Case is ignored.
+	/*
+	* Check that the entryType -field contains supported entry type. 
 	*/
-	public boolean hasValidType() {
-		if(type.equalsIgnoreCase(TYPE_ARTICLE))
-			return true;
-		else if(type.equalsIgnoreCase(TYPE_BOOK))
-			return true;
-                else if(type.equalsIgnoreCase(TYPE_INPROCEEDINGS))
-			return true;
-                else if(type.equalsIgnoreCase(TYPE_MISC))
-			return true;
-		
-		return false;
+	public boolean hasValidEntryType() {
+            for (String entry : entryTypes){
+                if (entry.equals(entryType)){
+                    return true;
+                }
+            }
+            return false;
+	} 
+        
+	/*
+	* Return all entry type names. 
+	*/
+	public String[] getTypeNames() {
+            return this.entryTypes;
 	} 
 	
 	
@@ -89,36 +83,164 @@ public class Reference {
 		this.inTrash = inTrash;    
 	}
 	
-	public String getType(){
-		return this.type;
+	public String getEntryType(){
+		return this.entryType;
 	}    
 	
-	public void setType(String type){
-		this.type = type;    
+	public void setEntryType(String entryType){
+		this.entryType = entryType;    
 	}
 	
 	public String getKey(){
 		return this.key;
 	}    
-	
+        
 	public void setKey(String key){
 		this.key = key;    
 	}
+                
+	public String getAbstractEntry(){
+		return this.abstractEntry;
+	}
 	
-	public String getAuthor(){
+	public void setAbstractEntry(String abstractEntry){
+		this.abstractEntry = abstractEntry;
+	}	
+        
+        public String getAddress(){
+		return this.address;
+	}
+	
+	public void setAddress(String address){
+		this.address = address;
+	}
+        
+	public String getAnnote(){
+		return this.annote;
+	}
+	
+	public void setAnnote(String annote){
+		this.annote = annote;
+	}
+
+        public String getAuthor(){
 		return this.author;
 	}
 	
 	public void setAuthor(String author){
 		this.author = author;
 	}
+
+	public String getBooktitle(){
+		return this.booktitle;
+	}
 	
+	public void setBooktitle(String booktitle){
+		this.booktitle = booktitle;
+	}
+	
+	public String getChapter(){
+		return this.chapter;
+	}
+	
+	public void setChapter(String chapter){
+		this.chapter = chapter;
+	}
+	
+	public String getCrossref(){
+		return this.crossref;
+	}
+	
+	public void setCrossref(String crossref){
+		this.crossref = crossref;
+	}
+	
+	public String getEdition() {
+		return edition;
+	}
+
+	public void setEdition(String edition) {
+		this.edition = edition;
+	}
+
 	public String getEditor() {
 		return editor;
 	}
 
 	public void setEditor(String editor) {
 		this.editor = editor;
+	}
+        
+	public String getEprint() {
+		return eprint;
+	}
+
+	public void setEprint(String eprint) {
+		this.eprint = eprint;
+	}
+
+	public String getHowpublished() {
+		return howpublished;
+	}
+
+	public void setHowpublished(String howpublished) {
+		this.howpublished = howpublished;
+	}
+               
+	public String getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(String institution) {
+		this.institution = institution;
+	}
+        
+	public String getJournal() {
+		return journal;
+	}
+
+	public void setJournal(String journal) {
+		this.journal = journal;
+	}
+        
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getNote() {
+		return note;
+	}
+	
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+        public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getOrganization() {
+		return journal;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+        
+	public String getPages() {
+		return pages;
+	}
+
+	public void setPages(String pages) {
+		this.pages = pages;
 	}
 
 	public String getPublisher() {
@@ -129,6 +251,22 @@ public class Reference {
 		this.publisher = publisher;
 	}
 
+	public String getSchool(){
+		return this.school;
+	}
+	
+	public void setSchool(String school){
+		this.school = school;
+	}
+        
+	public String getSeries(){
+		return this.series;
+	}
+	
+	public void setSeries(String series){
+		this.series = series;
+	}
+	
 	public String getTitle(){
 		return this.title;
 	}
@@ -136,21 +274,21 @@ public class Reference {
 	public void setTitle(String title){
 		this.title = title;
 	}
-	
-	public String getBooktitle(){
-		return this.booktitle;
+        
+	public String getType(){
+		return this.type;
 	}
 	
-	public void setBooktitle(String booktitle){
-		this.booktitle = booktitle;
-	}
-	
-	public String getJournal() {
-		return journal;
+	public void setType(String type){
+		this.type = type;
 	}
 
-	public void setJournal(String journal) {
-		this.journal = journal;
+        public String getUrl(){
+		return this.url;
+	}
+	
+	public void setUrl(String url){
+		this.url = url;
 	}
 
 	public String getVolume() {
@@ -161,46 +299,6 @@ public class Reference {
 		this.volume = volume;
 	}
 
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public String getSeries() {
-		return series;
-	}
-
-	public void setSeries(String series) {
-		this.series = series;
-	}
-
-	public String getEdition() {
-		return edition;
-	}
-
-	public void setEdition(String edition) {
-		this.edition = edition;
-	}
-
-	public String getPages() {
-		return pages;
-	}
-
-	public void setPages(String pages) {
-		this.pages = pages;
-	}
-
-	public String getMonth() {
-		return month;
-	}
-
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
 	public void setYear(String year){
 		this.year = year;
 	}
@@ -209,11 +307,4 @@ public class Reference {
 		return this.year;
 	}
 	
-	public String getNote() {
-		return note;
-	}
-	
-	public void setNote(String note) {
-		this.note = note;
-	}
 }
