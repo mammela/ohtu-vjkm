@@ -28,14 +28,20 @@ public class BibtexController {
 	/** Add reference handling (POST) */
         @RequestMapping(value = "add", method = RequestMethod.POST)
         public String add(@ModelAttribute("reference") Reference reference, Model model) {
+            
+                //** perform checks for valid data */
                 if (referenceService.findByKey(reference.getKey())!=null){
-                        model.addAttribute("message", "ERROR: bibtex key was not unique; reference was not added!");                                        
+                        model.addAttribute("adderror", 1);
+                } else if(reference.getKey().isEmpty()){
+                        model.addAttribute("adderror", 2); 
                 } else if(reference.hasValidEntryType() == false){
-                        model.addAttribute("message", "ERROR: reference type was incorrect; reference was not added!");                    
+                        model.addAttribute("adderror", 3);                    
                 } else {
                         referenceService.addRef(reference);
-                        model.addAttribute("message", "Reference with key="+ reference.getKey() +" added successfully!");
+                        model.addAttribute("adderror",  -1);
+                        model.addAttribute("savedkey",  reference.getKey());
                 }        	
+            
                 model.addAttribute("entrytypes", referenceService.getTypeNames());
                 model.addAttribute("usedkeys", referenceService.getKeys());                
         	return "addNew";
