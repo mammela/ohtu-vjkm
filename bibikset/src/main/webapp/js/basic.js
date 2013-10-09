@@ -20,7 +20,7 @@
                     [3, 22, 11, 13],                //techreport
                     [3, 22, 15, 13]];               //unpublished
                 
-    var orFields =  [[],                            //article
+    var altFields = [[],                            //article
                     [3,8, 25,16],                   //book                    
                     [],                             //booklet
                     [25,16],                        //conference
@@ -64,157 +64,164 @@
             if (selection == null){
                 selection = "book";
             }                
-            changeValue(selection);            
+            changeValue(selection);                        
         }
+        
         
         /*
          * Change form items for the website
          */ 
         function changeValue(receivedValue) {           
-            console.log(receivedValue + " received value");
-
-            var formType = "";
-            
+            var formType = "";            
             var entryTypeLoc = entryTypes.indexOf(receivedValue);
             if (entryTypeLoc > -1){
                 formType = fillForm(reqFields[entryTypeLoc], 
-                            orFields[entryTypeLoc], optFields[entryTypeLoc]);
+                            altFields[entryTypeLoc], optFields[entryTypeLoc]);
             }
             else {
                 alert("INVALID VALUE");
                 formType = "INVALID VALUE";
-                console.log("INVALID VALUE in changeValue()");
-            }
-                         
-            //formType += "<input name='Add' class='submit' type='submit' value='Add'/>";    
+            }                        
             document.getElementById('addForm').innerHTML = formType;             
+        }
+
+        /*
+         * Change input values when select has changed
+         */ 
+        function changeInput(origField, newField) {
+            var inputOldField = document.getElementById(origField+"Input");
+            var inputNewField = document.getElementById(newField+"Input");
+            if (inputOldField.style.visibility=='visible'){
+                inputOldField.style.visibility='hidden';
+                inputNewField.value = inputOldField.value;
+                inputOldField.value = "";
+                inputNewField.style.visibility='visible';
+            } else {
+                inputNewField.style.visibility='hidden';
+                inputOldField.value = inputNewField.value;
+                inputNewField.value = "";
+                inputOldField.style.visibility='visible';
+            }
         }
         
 
         /*
          * Fill the form with required, alternative & optional fields
          */
-        function fillForm(reqFields, orFields, optFields) {
+        function fillForm(reqFields, altFields, optFields) {
             var retVal = "<div class='formFields' id='req'><p>Required:</p>"
-            retVal += generateFields(reqFields, orFields, true);
+            retVal += generateFields(reqFields, altFields, true);
             retVal += "</div><div class='formFields' id='opt'><p/><p>Optional:</p>"
-            retVal += generateFields(optFields, orFields, false);
+            retVal += generateFields(optFields, altFields, false);
             retVal += "</div>"
             return retVal;
         }
         
         
         /*
-         * subfunction to generate fields
+         * Subfunction to generate fields
          */
-        function generateFields(fields, orFields, required) {
+        function generateFields(fields, altFields, required) {
             var retVal = "";
             for (var i=0;i<fields.length;i++) {
-                var field = entryFields[fields[i]];
-
-                //if there is an alternative field, display it also
-                var orFieldIndex = orFields.indexOf(fields[i]);
-                if (orFieldIndex > -1){
-                    var field2 = entryFields[orFields[orFieldIndex+1]]; //get fields pair
-                    retVal += generateField(field, false, false); //check required fields elsewhere
-                    retVal += "<div id='or'>";
-                    retVal += generateField(field2, false , true); //check required fields elsewhere
-                    retVal += "</div>"
-                } else {    //no alternative field, display only first
-                    retVal += generateField(field, required, false);                    
+                var fieldName = entryFields[fields[i]];
+                /*if there is an alternative field, display it also */
+                var altFieldIndex = altFields.indexOf(fields[i]);
+                if (altFieldIndex > -1){
+                    /* get fields pair */
+                    var altFieldName = entryFields[altFields[altFieldIndex+1]];
+                    
+                    /* required not passed on fields with alternatives, these fields need to be validated differently!*/
+                    retVal += generateSelectField(fieldName, altFieldName, i, false);
+                    
+                } else {    /* no alternative field, display only first */
+                    retVal += generateField(fieldName, required);                    
                 }
             }
             return retVal;
         }
         
+        
         /*
-         * subfunction to generate one label and input
+         * Generate one label and input
          */
-        function generateField(field, required, addOr) {
-                        var retVal;
-            var orText = "";
-            var pattern = "";
-            var title = "";
-            var fieldWeb = "";
-            var checkKey = "";
-            var reqVar = "";
-            var keyErrorMsg = "";
-            
-            if (required==true){    // append if needed
-                reqVar = " required";
-            }            
-            if (addOr){
-                orText = "or ";    // append if needed
-            }
-
-            fieldWeb = forWebSite(field);
-            if (field=="year") {    // do a pattern check for year
-                pattern=" pattern='[12][0-9]{3}'";
-                title=" title='enter year with 4 digits'";
-            }
-            if (field=="author" || field=="year") { //when author or year is changed by user, bibtex key is generated
-                checkKey = " onkeyup='generateUniqueKey(this)' onchange='generateUniqueKey(this)'";
-            }
-            else if (field=="abstract") {
-                field = "abstractEntry";    //abstract entry type is internally abstractEntry
-            }
-            else if (field=="key") {
-                fieldWeb = "Bibtex key";
-                checkKey = " onkeyup='keyChangedByUser(this)' onchange='keyChangedByUser(this)'"; // check key is user changes it
-                keyErrorMsg = "<div id='keyErrorMsg'></div>";
-            }
-            
-            // generate the label and input for the form
-            retVal = "<label>" + orText + fieldWeb + "<input" + checkKey +
-                    " type='text' name='" + field + "' id='"+field +"' " + pattern + title + 
-                    reqVar + "></label>"+keyErrorMsg;            
-            
+        function generateField(fieldName, required) {
+            var retVal = "<label>" + getFriendlyName(fieldName) +
+                    "<input " + generateInputParams(fieldName, required) + " /></label>" +
+                    getKeyErrorMsg(fieldName);
+            return retVal;
+        }
+        
+        
+        /* 
+         * Generate the select and two inputs
+         */
+        function generateSelectField(fieldName, altFieldName, fieldIndex, required) {
+            var retVal = "<select name='alt' onchange=\"changeInput('"+fieldName+"','"+ altFieldName+"');\">"+
+                    "<option value='" + fieldName + "'>" + getFriendlyName(fieldName) + "</option>" +
+                    "<option value='" + altFieldName + "'>" + getFriendlyName(altFieldName) + "</option></select>" +
+                    "<input " + generateInputParams(fieldName, required) + " style='visibility:visible;' />" +
+                    "<input " + generateInputParams(altFieldName, required) + " style='visibility:hidden;' />";
             return retVal;
         }
        
-        /*
-         * Capitalize the first letter of text
-         */
-        function forWebSite(text) {
-            text = text.charAt(0).toUpperCase() + text.slice(1);
-            console.log(text + " forWebSite");
-            return text;
-        }
 
         /*
-         * This will prevent form submit if bibtex key is not unique
+         * Get name for the label/select on form
          */
-        function isKeyValid(){
-            var keyValue = document.getElementById("key").value;
-            if(usedKeys.indexOf(keyValue)==-1){
-                return true;
+        function getFriendlyName(fieldName) {
+            /* if key, return friendier name*/
+            if (fieldName=="key"){
+                return "Bibtex key";
             }
-            return false;
-            
+            /* Capitalize the first letter of text */
+            return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
         }
+
+
         
         /* 
-         * validate bibtex key every time user changes the key's value
+         * Fill additional option for input 
          */
-        function keyChangedByUser() {
-            var keyValue = document.getElementById("key").value;
-            if(usedKeys.indexOf(keyValue)>-1){
-                document.getElementById('keyErrorMsg').innerHTML = "Entered key is not unique!";
-                document.getElementById('key').style.backgroundColor='red';
-            } else {
-                document.getElementById('keyErrorMsg').innerHTML = "";
-                document.getElementById('key').style.backgroundColor='white';
+        function generateInputParams(fieldName,required) {
+            /* our abstract entry type is internally abstractEntry */
+            if (fieldName=="abstract") {
+                fieldName = "abstractEntry";
             }
-        }    
+            /* fill type, name and id for input*/
+            var retVal = "type='text' name='" + fieldName + "' id='"+fieldName +"Input'";
+            /* if field is required, add required param*/
+            if (required==true){
+                retVal += " required";
+            }                        
+            /* when author, editor or year is changed by user, bibtex key is generated*/
+            if (fieldName=="author" || fieldName=="editor" || fieldName=="year") {
+                retVal += " onkeyup='generateUniqueKey(this)' onchange='generateUniqueKey(this)'";
+            }            
+            /* do a pattern check for year */
+            if (fieldName=="year") { 
+                retVal += " pattern='[12][0-9]{3}' title='enter year with 4 digits'";
+            }                                    
+            /* check key if user changes it */
+            else if (fieldName=="key") {
+                retVal += " onkeyup='keyChangedByUser(this)' onchange='keyChangedByUser(this)'";
+            }
+            return retVal;
+        }
         
+
+
         /*
          * create unique bibtex key by using author and key-fields
          */
         function generateUniqueKey(){
-            var authorVal = document.getElementById("author").value.toUpperCase();
-            authorVal = authorVal.replace("AND","").replace("JA","");
-            var yearVal = document.getElementById("year").value;            
-            var oneCharForEachWord = authorVal.match(/\b\w/g).join(''); // take only first letters from the names
+            var nameVal = document.getElementById("authorInput").value.toUpperCase();
+            if (nameVal == ""){
+                nameVal = document.getElementById("editorInput").value.toUpperCase();
+            }
+            nameVal = nameVal.replace("AND","").replace("JA","");
+            var yearVal = document.getElementById("yearInput").value;            
+            var oneCharForEachWord = nameVal.match(/\b\w/g).join(''); // take only first letters from the names
             if (oneCharForEachWord==null){
                 oneCharForEachWord="";
             }
@@ -231,20 +238,60 @@
             
             var addResult = 97; // ASCII 'a'
             
-            // try to find unique key by adding characters a-z to suggested key
+            /* try to find unique key by adding characters a-z to suggested key */
             while (true){                
                 var newValue = result+itoa(addResult);
                 if(usedKeys.indexOf(newValue)==-1){
                     document.form.key.value=newValue;
                     return;
-                } else if (addResult<122){ // ASCII 'z'
+                } else if (addResult<122){ /* ASCII 'z' */
                     addResult++;
                 } else {
-                    result = result+"a"; // if not found, add letter and try again
+                    result = result+"a"; /* if not found, add letter and try again */
                 }                
             }
         }
-                
+
+
+        /* 
+         * validate bibtex key every time user changes the key's value
+         */
+        function keyChangedByUser() {
+            if (isKeyValid()){
+                document.getElementById('keyErrorMsg').innerHTML = "";
+                document.getElementById('key').style.backgroundColor='white';
+            } else {
+                document.getElementById('keyErrorMsg').innerHTML = "Entered key is not unique!";
+                document.getElementById('key').style.backgroundColor='red';
+            }
+        }    
+
+
+
+        /*
+         * Check if the bibtex key is unique
+         */
+        function isKeyValid(){
+            var keyValue = document.getElementById("key").value;
+            if(usedKeys.indexOf(keyValue)==-1){
+                return true;
+            }
+            return false;            
+        }
+
+
+        /*
+         * Add div for non-unique key error message
+         */
+        function getKeyErrorMsg(field){
+            if (field == "key"){
+                return "<div id='keyErrorMsg'></div>";                
+            }
+            return "";
+        }
+
+
+
         /*
          * Convert int to char
          */
