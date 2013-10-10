@@ -199,8 +199,8 @@
             if (required==true){
                 retVal += " required";
             }                        
-            /* when author, editor or year is changed by user, bibtex key is generated*/
-            if (fieldName=="author" || fieldName=="editor" || fieldName=="year") {
+            /* when author, editor, title or year is changed by user, bibtex key is generated*/
+            if (fieldName=="author" || fieldName=="editor" || fieldName=="title" || fieldName=="year") {
                 retVal += " onkeyup='generateUniqueKey(this)' onchange='generateUniqueKey(this)'";
             }            
             /* do a pattern check for year */
@@ -220,17 +220,33 @@
          * create unique bibtex key by using author and key-fields
          */
         function generateUniqueKey(){
-            var nameVal = document.getElementById("authorInput").value.toUpperCase();
-            if (nameVal == ""){
-                nameVal = document.getElementById("editorInput").value.toUpperCase();
-            }
-            nameVal = nameVal.replace("AND","").replace("JA","");
-            var yearVal = document.getElementById("yearInput").value;            
-            var oneCharForEachWord = nameVal.match(/\b\w/g).join(''); // take only first letters from the names
-            if (oneCharForEachWord==null){
-                oneCharForEachWord="";
-            }
+            var nameVal = "";
+            var oneCharForEachWord = "";
+            var yearVal = "";
             var yearShort = "";
+            
+            // generate bibtex using author, editor or title
+            if (elementExists("authorInput")){
+                nameVal = document.getElementById("authorInput").value;
+            }
+            
+            if (nameVal == "" && elementExists("editorInput")){
+                nameVal = document.getElementById("editorInput").value;
+            }
+            if (nameVal == "" && elementExists("titleInput")){
+                nameVal = document.getElementById("titleInput").value;
+            }
+            nameVal = nameVal.replace(" AND "," ").replace(" JA"," ").toUpperCase();
+            var yearEl = document.getElementById("yearInput");
+            if (yearEl){
+                yearVal = yearEl.value;
+            }
+
+            var match = nameVal.match(/\b\w/g);
+            if (match){     // take only first letters from the names
+                oneCharForEachWord = match.join('');
+            }
+            
             if (yearVal.length==4){ //take only 2 last numbers
                 yearShort = yearVal.slice(-2);
             }
@@ -300,4 +316,16 @@
          */
         function itoa(i){
             return String.fromCharCode(i);
+        }
+        
+        
+                /*
+         * check if element is in document
+         */
+        function elementExists(elementId){
+            var element = document.getElementById(elementId);
+            if (element != null){
+                return true;
+            }
+            return false;
         }
