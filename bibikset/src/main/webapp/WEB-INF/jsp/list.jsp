@@ -13,7 +13,6 @@
         <c:if test="${not empty reflist}">
             <h2>Reference list</h2>
             <table>
-            <table>
             <tr>
                 <th>Type</th>
                 <th>Key</th>

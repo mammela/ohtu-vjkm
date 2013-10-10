@@ -40,7 +40,7 @@ a.menu {
 	font-size: 16px;
 }
 
-a:hover {
+a.hover {
 	text-decoration: underline;
 }
 
@@ -57,11 +57,7 @@ div.menucontainer {
 }
 
 div.inputData {
-	width: 700px;
-}
-
-div.or {
-        
+	width: 850px;
 }
 
 /* tables */
@@ -96,39 +92,51 @@ td {
 /* Forms */
 
 input { 
-	margin: 0px; 
+	margin: 5px; 
 	float: right;
 } 
 
 input.submit {
 	float: none;
-        margin-left: 20px;
+        margin-left: 40px;
+        width: 60px;
+        height: 28px;
 }
 
 input.left {
 	float: left;
 }
 
-label {
-	margin-top: 10px;
-	width: 100%; 
+label, select {
+	margin-top: 5px;
+	width: 100px; 
 	float: left; 
 	
 	font-size: 16px;
 	font-family: 'Gudea', sans-serif;
 }
 
-#addForm {
-    background-color: #D3D3D3;
-    position: relative;
-    width: 100%;
+#form label.error {
+    color:red;
 }
 
-.formFields {
+#form select.error {
+    color:red;
+}
+
+#form input.error {
+    border:1px solid red;
+}
+
+#optTable, #reqTable {
     background-color: #FAFAD2;
-    float: left;
     padding: 20px;
-    position: relative;
-    width: 40%;
 }
 
+#reqTable {
+    float: left;
+}
+
+#optTable {
+    float: right;
+}

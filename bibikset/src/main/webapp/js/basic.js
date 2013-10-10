@@ -64,8 +64,8 @@
             if (selection == null){
                 selection = "book";
             }                
-            changeValue(selection);                        
-        }
+            changeValue(selection);  
+        }       
         
         
         /*
@@ -86,21 +86,26 @@
         }
 
         /*
-         * Change input values when select has changed
+         * Swap input fields when select has changed
+         * & hide non-selected
          */ 
         function changeInput(origField, newField) {
             var inputOldField = document.getElementById(origField+"Input");
             var inputNewField = document.getElementById(newField+"Input");
-            if (inputOldField.style.visibility=='visible'){
-                inputOldField.style.visibility='hidden';
-                inputNewField.value = inputOldField.value;
-                inputOldField.value = "";
-                inputNewField.style.visibility='visible';
-            } else {
-                inputNewField.style.visibility='hidden';
+            if (inputOldField.disabled){
+                inputNewField.style.display="none";
+                inputOldField.disabled=false;
                 inputOldField.value = inputNewField.value;
                 inputNewField.value = "";
-                inputOldField.style.visibility='visible';
+                inputNewField.disabled=true;
+                inputOldField.style.display="inline";
+            } else {
+                inputOldField.style.display="none";
+                inputNewField.disabled=false;
+                inputNewField.value = inputOldField.value;
+                inputOldField.value = "";
+                inputOldField.disabled=true;
+                inputNewField.style.display="inline";
             }
         }
         
@@ -109,11 +114,10 @@
          * Fill the form with required, alternative & optional fields
          */
         function fillForm(reqFields, altFields, optFields) {
-            var retVal = "<div class='formFields' id='req'><p>Required:</p>"
+            var retVal = "<table id='reqTable'><tr><th>Required</th><th></th></tr>"
             retVal += generateFields(reqFields, altFields, true);
-            retVal += "</div><div class='formFields' id='opt'><p/><p>Optional:</p>"
+            retVal += "<table id='optTable'><tr><th>Optional</th><th></th></tr>"
             retVal += generateFields(optFields, altFields, false);
-            retVal += "</div>"
             return retVal;
         }
         
@@ -131,8 +135,8 @@
                     /* get fields pair */
                     var altFieldName = entryFields[altFields[altFieldIndex+1]];
                     
-                    /* required not passed on fields with alternatives, these fields need to be validated differently!*/
-                    retVal += generateSelectField(fieldName, altFieldName, i, false);
+                    /* display two fields on a select*/
+                    retVal += generateSelectField(fieldName, altFieldName, required);
                     
                 } else {    /* no alternative field, display only first */
                     retVal += generateField(fieldName, required);                    
@@ -146,22 +150,23 @@
          * Generate one label and input
          */
         function generateField(fieldName, required) {
-            var retVal = "<label>" + getFriendlyName(fieldName) +
-                    "<input " + generateInputParams(fieldName, required) + " /></label>" +
-                    getKeyErrorMsg(fieldName);
+            var retVal = "<tr><td><label>" + getFriendlyName(fieldName) + "</label></td><td>" +
+                    "<input " + generateInputParams(fieldName, required) + " />" +
+                    getKeyErrorMsg(fieldName) + "</td></tr>";
             return retVal;
         }
-        
+
         
         /* 
          * Generate the select and two inputs
          */
-        function generateSelectField(fieldName, altFieldName, fieldIndex, required) {
-            var retVal = "<select name='alt' onchange=\"changeInput('"+fieldName+"','"+ altFieldName+"');\">"+
+        function generateSelectField(fieldName, altFieldName, required) {
+            var retVal = "<tr><td><select onchange=\"changeInput('"+fieldName+"','"+ altFieldName+"');\">"+
                     "<option value='" + fieldName + "'>" + getFriendlyName(fieldName) + "</option>" +
-                    "<option value='" + altFieldName + "'>" + getFriendlyName(altFieldName) + "</option></select>" +
-                    "<input " + generateInputParams(fieldName, required) + " style='visibility:visible;' />" +
-                    "<input " + generateInputParams(altFieldName, required) + " style='visibility:hidden;' />";
+                    "<option value='" + altFieldName + "'>" + getFriendlyName(altFieldName) + "</option></select></td><td>" +
+                    "<input " + generateInputParams(fieldName, required) + " />" +
+                    "<input " + generateInputParams(altFieldName, required) + 
+                    " style='display: none;' disabled='true' /></td></tr>";
             return retVal;
         }
        
@@ -259,10 +264,10 @@
         function keyChangedByUser() {
             if (isKeyValid()){
                 document.getElementById('keyErrorMsg').innerHTML = "";
-                document.getElementById('key').style.backgroundColor='white';
+                document.getElementById('keyInput').style.backgroundColor='white';
             } else {
                 document.getElementById('keyErrorMsg').innerHTML = "Entered key is not unique!";
-                document.getElementById('key').style.backgroundColor='red';
+                document.getElementById('keyInput').style.backgroundColor='red';
             }
         }    
 
@@ -272,7 +277,7 @@
          * Check if the bibtex key is unique
          */
         function isKeyValid(){
-            var keyValue = document.getElementById("key").value;
+            var keyValue = document.getElementById("keyInput").value;
             if(usedKeys.indexOf(keyValue)==-1){
                 return true;
             }
@@ -290,6 +295,17 @@
             return "";
         }
 
+
+        /*
+         *  Generate a running field identifier for css
+         */
+        function generateFieldDiv(index, required){
+            if (required){
+                return " id='r" + index + "'";
+            } else {
+                return " id='o" + index + "'";
+            }
+        }
 
 
         /*
