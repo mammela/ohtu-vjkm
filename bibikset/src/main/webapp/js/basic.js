@@ -295,19 +295,6 @@
             return "";
         }
 
-
-        /*
-         *  Generate a running field identifier for css
-         */
-        function generateFieldDiv(index, required){
-            if (required){
-                return " id='r" + index + "'";
-            } else {
-                return " id='o" + index + "'";
-            }
-        }
-
-
         /*
          * Convert int to char
          */
