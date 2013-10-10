@@ -17,6 +17,7 @@ import com.avaje.ebean.config.ServerConfig;
 @Service
 public class ReferenceService {
 	private EbeanServer ormServer;
+        private Validate validateObj;
 	
 	/* *******************************************************************
 	* Constructor/setup
@@ -38,6 +39,7 @@ public class ReferenceService {
 	public ReferenceService(boolean inMemory, boolean dropAndCreate) {
 		DataSourceConfig dsConf = initDataSource(inMemory, "~/bibikset");
 		ormServer = initDB(dsConf, dropAndCreate);
+                validateObj = new Validate();
 	}
 	
 	/** 
@@ -83,11 +85,22 @@ public class ReferenceService {
 	*********************************************************************/
 	
         /** 
-	* All entry type names
+	* Validation for reference object
+	*/
+        public boolean isValidReference(Reference validateRef){
+            if (validateObj.validateEntry(validateRef)){
+                return true;
+            }
+            return false;
+        }
+        
+        /** 
+	* Return all entry type names
 	*/
 	public String[] getTypeNames() {
-                Reference ref = new Reference();
-                return ref.getTypeNames();
+            return validateObj.getTypeNames();
+//                Reference ref = new Reference();
+//                return ref.getTypeNames();
 	}
 
         /*

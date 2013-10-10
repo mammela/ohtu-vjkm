@@ -14,10 +14,8 @@
         <jsp:include page="includeMenu.jsp" />
         
         <p><b>
-        <c:if test="${adderror==-1}">Reference with a key=${savedkey} added successfully!</c:if>
-        <c:if test="${adderror==1}">ERROR: bibtex key was not unique; reference was not added!</c:if>
-        <c:if test="${adderror==2}">ERROR: bibtex key was empty; reference was not added!</c:if>
-        <c:if test="${adderror==3}">ERROR: reference type was incorrect; reference was not added!</c:if>
+        <c:if test="${addok==true}">Reference with a key=${savedkey} added successfully!</c:if>
+        <c:if test="${addok==false}">ERROR: invalid form input; reference was not added!</c:if>
         </b></p>
 
         <h2>Add new reference</h2>

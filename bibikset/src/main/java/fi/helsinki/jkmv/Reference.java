@@ -9,12 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Reference {
 	
-	// reference entry types
-        private static final String[] entryTypes = {"article", "book", "booklet", 
-            "conference", "inbook", "incollection", "inproceedings", "manual",
-            "mastersthesis", "misc", "phdthesis", "proceedings", "techreport",
-            "unpublished"};
-               
 	// basic fields
 	@Id
 	private int id;
@@ -38,30 +32,7 @@ public class Reference {
             this.entryType = "misc";
             this.inTrash = false;
 	}
-	
-	/*____________________________________________________________________
-	* Services
-	*/
-	
-	/*
-	* Check that the entryType -field contains supported entry type. 
-	*/
-	public boolean hasValidEntryType() {
-            for (String entry : entryTypes){
-                if (entry.equals(entryType)){
-                    return true;
-                }
-            }
-            return false;
-	} 
-        
-	/*
-	* Return all entry type names. 
-	*/
-	public String[] getTypeNames() {
-            return this.entryTypes;
-	} 
-	
+		
 	
 	/*____________________________________________________________________
 	* Get/Set

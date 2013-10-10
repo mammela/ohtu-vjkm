@@ -29,17 +29,14 @@ public class BibtexController {
         @RequestMapping(value = "add", method = RequestMethod.POST)
         public String add(@ModelAttribute("reference") Reference reference, Model model) {
             
-                //** perform checks for valid data */
-                if (referenceService.findByKey(reference.getKey())!=null){
-                        model.addAttribute("adderror", 1);
-                } else if(reference.getKey().isEmpty()){
-                        model.addAttribute("adderror", 2); 
-                } else if(reference.hasValidEntryType() == false){
-                        model.addAttribute("adderror", 3);                    
-                } else {
+                /** if reference is valid, add data to reference service */
+                if (referenceService.isValidReference(reference)){
                         referenceService.addRef(reference);
-                        model.addAttribute("adderror",  -1);
+                        model.addAttribute("addok",  true);
                         model.addAttribute("savedkey",  reference.getKey());
+                } else {
+                        System.out.println(reference.toString());                    
+                        model.addAttribute("addok", false);                    
                 }        	
             
                 model.addAttribute("entrytypes", referenceService.getTypeNames());

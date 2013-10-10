@@ -14,24 +14,10 @@ public class ReferenceTest {
     public void init(){
         ref = new Reference();
     }
-    
-    //testit validTypelle
-    @Test
-    public void testHasValidType() {
-        ref.setEntryType("book");
-        assertEquals(true, ref.hasValidEntryType());
-        ref.setEntryType("article");
-        assertEquals(true, ref.hasValidEntryType());
-        ref.setEntryType("inproceedings");
-        assertEquals(true, ref.hasValidEntryType());
-        ref.setEntryType("misc");
-        assertEquals(true, ref.hasValidEntryType());
-
-        ref.setEntryType("hatsa");
-        assertEquals(false, ref.hasValidEntryType());
-    }
-    
-    //testit muille get-seteille
+        
+    /*
+     * Tests for get/set
+     */
     @Test
     public void testGetSets() {
         ref.setKey("test23");
