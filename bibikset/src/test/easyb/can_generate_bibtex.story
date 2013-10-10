@@ -32,6 +32,6 @@ scenario "user can generate a list in Bibtex-format", {
     }
  
     then 'references in Bibtex-format will be shown', {
-        driver.getPageSource().contains("@inproceedings{BB87,").shouldBe true
+        driver.getPageSource().contains("@inproceedings").shouldBe true
     }
 }

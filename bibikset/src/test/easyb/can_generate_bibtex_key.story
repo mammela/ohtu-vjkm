@@ -19,7 +19,7 @@ scenario "user can get automatically generated bibtex key", {
 
     when 'required fields are given with valid values without bibtex key', {
         element = driver.findElement(By.name("author"));
-        element.sendKeys("Anna Benson");
+        element.sendKeys("Anna Benson Bee");
         element = driver.findElement(By.name("title"));
         element.sendKeys("Anna's Life");
         element = driver.findElement(By.name("booktitle"));
@@ -30,6 +30,6 @@ scenario "user can get automatically generated bibtex key", {
     }
  
     then 'reference will be added in to system', {
-        driver.getPageSource().contains("Reference with a key=AB22 added").shouldBe true
+        driver.getPageSource().contains("Reference with a key=ABB22").shouldBe true
     }
 }

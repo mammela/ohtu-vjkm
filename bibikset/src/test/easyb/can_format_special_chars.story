@@ -23,6 +23,8 @@ scenario "user can get Bibtex-list correctly with scandinavian characters", {
         element.sendKeys("Uudet käytännöt");
         element = driver.findElement(By.name("year"));
         element.sendKeys("1999");
+        element = driver.findElement(By.name("key"));
+        element.sendKeys("PPPPP99");
         element.submit();
     }
 

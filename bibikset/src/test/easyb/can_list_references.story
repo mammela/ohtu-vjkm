@@ -7,20 +7,6 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 url="http://localhost:8080/app/add"
 
 description 'User can list references'
-
-scenario "user can list references from empty container", {
-    given 'no references added and list selected', {
-        driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
-        driver.setJavascriptEnabled(true);
-        driver.get(url);
-        element = driver.findElement(By.linkText("List"));
-        element.click();
-    }                
-    
-    then 'will tell list that is empty', {
-        driver.getPageSource().contains("No items in the reference list").shouldBe true
-    }
-}        
         
 scenario "user can list references", {
     given 'references have been added', {
