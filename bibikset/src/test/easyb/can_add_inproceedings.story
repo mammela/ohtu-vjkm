@@ -9,7 +9,7 @@ url="http://localhost:8080/app/add"
 description 'User can add inproceedings-referece with basic fields'
 
 scenario "user can add inproceedings reference", {
-    given 'add selected', {
+    given 'inproceedings is selected', {
         driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
         driver.setJavascriptEnabled(true);
         driver.get(url);
@@ -17,7 +17,7 @@ scenario "user can add inproceedings reference", {
         select.selectByVisibleText("inproceedings"); 
     }
 
-    when 'valid input is given', {
+    when 'required fields are given with valid values', {
         element = driver.findElement(By.name("author"));
         element.sendKeys("Bob Benson");
         element = driver.findElement(By.name("title"));
@@ -35,7 +35,33 @@ scenario "user can add inproceedings reference", {
 }
 
 scenario "user cannot add inproceedings reference", {
-    given 'add selected', {
+    given 'inproceedings is selected', {
+        driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
+        driver.setJavascriptEnabled(true);
+        driver.get(url);
+        Select select = new Select(driver.findElement(By.name("entryType")));
+        select.selectByVisibleText("inproceedings"); 
+    }
+
+    when 'required fields are given with invalid values', {
+        element = driver.findElement(By.name("author"));
+        element.sendKeys("Bob Benson");
+        element = driver.findElement(By.name("title"));
+        element.sendKeys("Bob's Life3");
+        element = driver.findElement(By.name("booktitle"));
+        element.sendKeys("123");
+        element = driver.findElement(By.name("year"));
+        element.sendKeys("vuosiluku");
+        element.submit();
+    }
+ 
+    then 'reference will not be added in to system', {
+        driver.getPageSource().contains("added successfully!").shouldBe false
+    }
+}
+
+scenario "user cannot add inproceedings reference", {
+    given 'inproceedings is selected', {
         driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_9);
         driver.setJavascriptEnabled(true);
         driver.get(url);
@@ -47,7 +73,7 @@ scenario "user cannot add inproceedings reference", {
         element = driver.findElement(By.name("author"));
         element.sendKeys("Bob Benson");
         element = driver.findElement(By.name("title"));
-        element.sendKeys("Bob's Life");
+        element.sendKeys("Bob's Life 2");
         element = driver.findElement(By.name("booktitle"));
         element.sendKeys("123");
         element.submit();

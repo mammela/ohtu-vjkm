@@ -47,9 +47,9 @@
             <p><b>No items in the reference list.</b></p>
 	</c:if>
 
-        <c:if test="${not empty trashlist}">
             <br/>
             <h2>Trash</h2>
+        <c:if test="${not empty trashlist}">
             <table>
             <tr>
                 <th>Type</th>
@@ -82,6 +82,9 @@
                 <input class="left" name="empty" type="submit" value="Empty trash"/>         
             </form>
         </c:if>
+        <c:if test="${empty trashlist}">
+            <p><b>No items in the trash.</b></p>
+	</c:if>
         </div>
     </body>
 </html>
