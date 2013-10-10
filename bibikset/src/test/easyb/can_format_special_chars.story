@@ -34,6 +34,6 @@ scenario "user can get Bibtex-list correctly with scandinavian characters", {
     }
  
     then 'references in correct Bibtex-format will be shown', {
-        driver.getPageSource().contains('Pekka P{\\"a}{\\"a}talo').shouldBe true
+        driver.getPageSource().contains('Pekka P\{\\"a\}\{\\"a\}talo').shouldBe true
     }
 }
