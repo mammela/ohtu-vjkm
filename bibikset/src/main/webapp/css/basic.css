@@ -118,7 +118,7 @@ label, select {
 }
 
 #form select.error {
-    color:red;
+    border:1px solid red;
 }
 
 #form input.error {
@@ -136,4 +136,8 @@ label, select {
 
 #optTable {
     float: right;
+}
+
+#trashform {
+    float: left;
 }

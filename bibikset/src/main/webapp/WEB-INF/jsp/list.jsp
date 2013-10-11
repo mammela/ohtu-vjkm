@@ -78,7 +78,7 @@
 		</tr>
             </c:forEach>
             </table>
-            <form name="form" id="form" method="POST" action="emptytrash">
+            <form name="trashform" id="trashform" method="POST" action="emptytrash">
                 <input class="left" name="empty" type="submit" value="Empty trash"/>         
             </form>
         </c:if>
