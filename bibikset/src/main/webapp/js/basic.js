@@ -236,18 +236,22 @@
             if (nameVal == "" && elementExists("titleInput")){
                 nameVal = document.getElementById("titleInput").value;
             }
-            nameVal = nameVal.replace(" AND "," ").replace(" JA"," ").toUpperCase();
-            var yearEl = document.getElementById("yearInput");
-            if (yearEl){
-                yearVal = yearEl.value;
-            }
+            nameVal = nameVal.replace(" AND "," ").replace(" JA"," ")
+            nameVal = nameVal.replace("\u00C4","A").replace("\u00E4","a")
+            nameVal = nameVal.replace("\u00D6","O").replace("\u00F6","o")
+            nameVal = nameVal.toUpperCase();
 
             var match = nameVal.match(/\b\w/g);
             if (match){     // take only first letters from the names
                 oneCharForEachWord = match.join('');
             }
             
-            if (yearVal.length==4){ //take only 2 last numbers
+            var yearEl = document.getElementById("yearInput");
+            if (yearEl){
+                yearVal = yearEl.value;
+            }
+            var match = yearVal.match("[012][0-9]{3}");
+            if (match){  //take only 2 last numbers of the year
                 yearShort = yearVal.slice(-2);
             }
 
