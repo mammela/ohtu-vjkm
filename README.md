@@ -4,7 +4,7 @@ ohtu-vjkm
 Bibtex sovellus
 
 demo:
-t-kristiat.users.cs.helsinki.fi/bibikset/
+http://t-kristiat.users.cs.helsinki.fi/bibikset/
 
 Jenkins:
 http://t-kristiat.users.cs.helsinki.fi/jenkins/job/ohtu-vjkm/
