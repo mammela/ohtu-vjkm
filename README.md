@@ -3,6 +3,9 @@ ohtu-vjkm
 
 Bibtex sovellus
 
+Miniprojektin raportti:
+http://www.cs.helsinki.fi/u/kristiat/ohtu/ohtu-bibikset_raportti.pdf
+
 demo:
 http://t-kristiat.users.cs.helsinki.fi/bibikset/
 
